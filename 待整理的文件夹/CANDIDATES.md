@@ -102,6 +102,12 @@
 | C | MSPM0G3507_VSCODE | https://github.com/RitsuYi/MSPM0G3507_VSCODE | 待重试 | 未声明 | 基于 VSCode 的 MSPM0G3507 项目 | 本轮 GitHub 连接重置，后续单仓重试 |
 | C | MSPM0G3507_FreeRTOS | https://github.com/Ju4tdo1/MSPM0G3507_FreeRTOS | 待重试 | 未声明 | MSPM0G3507 FreeRTOS 工程 | 本轮 GitHub 连接重置，后续单仓重试 |
 
+## 第六批候选
+| 优先级 | 名称 | 来源 | 导入方式 | 许可证 | 适配价值 | 下一步 |
+|---|---|---|---|---|---|---|
+| B | NUEDC_2025 | https://github.com/VincentttWang/NUEDC_2025 | source-card | 未声明 | 2025 全国大学生电子设计大赛 E 题仓库；code search 命中 `2025E/工程文件/BSP/Motor_Encoder/TB6612FNG_README.md` | 本轮连接重置，后续重试 submodule；优先抽 TB6612/编码器目录 |
+| B | EDC_ti | https://github.com/lxl2024666/EDC_ti | source-card | 未声明 | code search 命中 `Template/BSP/Motor_Encoder/TB6612FNG_README.md`，可作为 TB6612/编码器工程模板候选 | 本轮普通 clone 与浅克隆均连接重置，后续重试 |
+
 ## 后续搜索方向
 
 - MSPM0G3507 + TB6612 / DRV8833 / PWM / encoder

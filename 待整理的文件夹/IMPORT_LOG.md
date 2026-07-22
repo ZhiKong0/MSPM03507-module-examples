@@ -124,3 +124,18 @@
 - `RitsuYi/MSPM0G3507_VSCODE`：GitHub 连接重置，保留待重试。
 - `Ju4tdo1/MSPM0G3507_FreeRTOS`：GitHub 连接重置，保留待重试。
 - `jeffrey070318/MSPM0G3507_BASIC-`：仓库内容高度相关，但本轮导入后在 Windows 子模块工作树中出现 `git-lfs filter-process` 残留和索引异常；已从索引撤回并清理工作目录，改为待重试候选。
+
+## 2026-07-22 第六轮 code search 检索
+
+### 已完成
+
+- 仓库名关键词检索暂未发现新的未导入高相关仓库。
+- 改用 GitHub code search 反查模块关键词，命中 2 个仓库名不直接暴露 MSPM0G3507 小车特征的候选：
+  - `VincentttWang/NUEDC_2025`：命中 `2025E/工程文件/BSP/Motor_Encoder/TB6612FNG_README.md`
+  - `lxl2024666/EDC_ti`：命中 `Template/BSP/Motor_Encoder/TB6612FNG_README.md`
+- 两者已登记为第六批 source-card/待重试候选。
+
+### 未完成
+
+- `VincentttWang/NUEDC_2025`：`git ls-remote`/clone 过程中 GitHub 连接重置，暂不导入 submodule。
+- `lxl2024666/EDC_ti`：普通 clone 与 `--depth 1` 浅克隆均连接重置，已确认未留下半成目录。
