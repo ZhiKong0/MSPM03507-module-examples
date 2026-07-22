@@ -62,7 +62,7 @@
 | 优先级 | 名称 | 来源 | 状态 | 适配价值 | 下一步 |
 |---|---|---|---|---|---|
 | B | MSPM0G3507_syscfg_freeRTOS | https://github.com/WYJxxoo/MSPM0G3507_syscfg_freeRTOS | 待重试 | 电机控制、PID、编码器、循迹、FreeRTOS 示例 | 多次 GitHub 连接失败，保留重试 |
-| B | 25xiaoche | https://github.com/xieyangyingshutong/25xiaoche | 待重试 | 2025 电赛小车大部分功能，Keil + SysConfig | 多次 GitHub 连接失败，保留重试 |
+| B | 25xiaoche | https://github.com/xieyangyingshutong/25xiaoche | submodule | 2025 电赛小车大部分功能，Keil + SysConfig | 第七轮补导入成功，后续抽查小车功能模块 |
 | B | nuedc_control_car_freertos_template | https://github.com/xy1092/nuedc_control_car_freertos_template | submodule | Clean calibrated MSPM0G3507 FreeRTOS control car template | 对比现有 `nuedc_control_freertos` |
 | B | TI-Cup-School-Competitions | https://github.com/bigandstone/TI-Cup-School-Competitions | submodule | TI 电赛校级选拔赛历届赛题代码合集 | 拆出控制题相关工程 |
 | B | Grayscale-Line-Follower-Robot | https://github.com/military-doge/Grayscale-Line-Follower-Robot | submodule | MSPM0G3507 灰度循迹小车 | 对比灰度巡线和底盘控制 |
@@ -87,7 +87,7 @@
 | B | mspm0g3507-imu-lcd | https://github.com/Eliauk-Camelia/mspm0g3507-imu-lcd | submodule | 未声明 | MPU6050 姿态、ST7735S LCD、灰度传感器 | 补 IMU/LCD/灰度基础模块 |
 | C | mspm0G3507cartest_record | https://github.com/kokona23/mspm0G3507cartest_record | 待重试 | 未声明 | 四电机循迹小车开发项目 | 本轮 GitHub 连接重置 |
 | C | TI_MSPM0G3507_Project | https://github.com/sbjsw334/TI_MSPM0G3507_Project | 待重试 | 未声明 | 状态机五段电赛控制类项目 | 本轮 clone 超时后已清理半成目录 |
-| C | TMC2209_StepMotor_Driver | https://github.com/Tacrine/TMC2209_StepMotor_Driver | 待导入 | 未声明 | TMC2209 步进电机驱动，支持 MSPM0G3507/STM32 | 后续按步进电机需求导入 |
+| C | TMC2209_StepMotor_Driver | https://github.com/Tacrine/TMC2209_StepMotor_Driver | submodule | GPL-3.0 | TMC2209 步进电机驱动，支持 MSPM0G3507/STM32 | 第七轮补导入成功，GPL 代码仅作学习/参考 |
 
 ## 第五批候选
 | 优先级 | 名称 | 来源 | 导入方式 | 许可证 | 适配价值 | 下一步 |
@@ -98,15 +98,25 @@
 | B | MSPM0G3507-System-Library | https://github.com/Almighty42/MSPM0G3507-System-Library | submodule | 未声明 | MSPM0G3507 系统库/基础封装候选 | 抽查外设驱动和目录完整性 |
 | B | 26_TI_MSPM0G3507 | https://github.com/ergouzi332/26_TI_MSPM0G3507 | submodule | 未声明 | 2026/TI/MSPM0G3507 相关近期项目 | 判断是否包含电赛控制题模块 |
 | C | MSPM0G3507_BASIC- | https://github.com/jeffrey070318/MSPM0G3507_BASIC- | 待重试 | 未声明 | 包含 CMake、FreeRTOS、BSP、motor、pid、oled、gray_sensor、vofa 等强相关目录，但本轮在 Windows 子模块导入后出现 git-lfs/索引异常 | 后续换浅克隆或独立路径重试，成功前不提交 submodule |
-| C | MSPM0G3507-AutoCar | https://github.com/686my686/MSPM0G3507-AutoCar | 待重试 | 未声明 | MSPM0G3507 AutoCar 候选 | 本轮 clone 超时，后续单仓重试 |
+| B | MSPM0G3507-AutoCar | https://github.com/686my686/MSPM0G3507-AutoCar | submodule | 未声明 | MSPM0G3507 AutoCar 候选 | 第七轮补导入成功，后续抽查底盘控制结构 |
 | C | MSPM0G3507_VSCODE | https://github.com/RitsuYi/MSPM0G3507_VSCODE | 待重试 | 未声明 | 基于 VSCode 的 MSPM0G3507 项目 | 本轮 GitHub 连接重置，后续单仓重试 |
-| C | MSPM0G3507_FreeRTOS | https://github.com/Ju4tdo1/MSPM0G3507_FreeRTOS | 待重试 | 未声明 | MSPM0G3507 FreeRTOS 工程 | 本轮 GitHub 连接重置，后续单仓重试 |
+| B | MSPM0G3507_FreeRTOS | https://github.com/Ju4tdo1/MSPM0G3507_FreeRTOS | submodule | 未声明 | MSPM0G3507 FreeRTOS 工程 | 第七轮补导入成功，后续对比 RTOS 工程组织 |
 
 ## 第六批候选
 | 优先级 | 名称 | 来源 | 导入方式 | 许可证 | 适配价值 | 下一步 |
 |---|---|---|---|---|---|---|
-| B | NUEDC_2025 | https://github.com/VincentttWang/NUEDC_2025 | source-card | 未声明 | 2025 全国大学生电子设计大赛 E 题仓库；code search 命中 `2025E/工程文件/BSP/Motor_Encoder/TB6612FNG_README.md` | 本轮连接重置，后续重试 submodule；优先抽 TB6612/编码器目录 |
+| B | NUEDC_2025 | https://github.com/VincentttWang/NUEDC_2025 | submodule | 未声明 | 2025 全国大学生电子设计大赛 E 题仓库；code search 命中 `2025E/工程文件/BSP/Motor_Encoder/TB6612FNG_README.md` | 第七轮补导入成功，优先抽 TB6612/编码器目录 |
 | B | EDC_ti | https://github.com/lxl2024666/EDC_ti | source-card | 未声明 | code search 命中 `Template/BSP/Motor_Encoder/TB6612FNG_README.md`，可作为 TB6612/编码器工程模板候选 | 本轮普通 clone 与浅克隆均连接重置，后续重试 |
+
+## 第七批候选
+| 优先级 | 名称 | 来源 | 导入方式 | 许可证 | 适配价值 | 下一步 |
+|---|---|---|---|---|---|---|
+| A | mspm0-car-2024-h | https://github.com/DQ103/mspm0-car-2024-h | submodule | MIT | MSPM0 car project for 2026 school competition，基于 2024 H；含 CMake、FreeRTOS、SysConfig、Control、Drivers、tools 和多个调试分支 | 优先抽查规则控制、编码器/IMU/路径状态机和 CMake/GCC 流程 |
+| B | MSPM0G3507-AutoCar | https://github.com/686my686/MSPM0G3507-AutoCar | submodule | 未声明 | MSPM0G3507 AutoCar 候选，本轮从待重试转成功 | 对比底盘控制和任务结构 |
+| B | MSPM0G3507_FreeRTOS | https://github.com/Ju4tdo1/MSPM0G3507_FreeRTOS | submodule | 未声明 | MSPM0G3507 FreeRTOS 工程，本轮从待重试转成功 | 对比 RTOS 初始化和任务划分 |
+| B | NUEDC_2025 | https://github.com/VincentttWang/NUEDC_2025 | submodule | 未声明 | 2025 E 题参赛仓库，包含 TB6612/编码器 code search 命中路径 | 抽取 Motor_Encoder、TB6612FNG、2025E 小车结构 |
+| B | 25xiaoche | https://github.com/xieyangyingshutong/25xiaoche | submodule | 未声明 | Keil5 + TI SysConfig，覆盖 2025 电赛小车大部分功能 | 抽查功能覆盖面和可移植模块 |
+| C | TMC2209_StepMotor_Driver | https://github.com/Tacrine/TMC2209_StepMotor_Driver | submodule | GPL-3.0 | TMC2209 步进电机驱动，支持 STM32 和 TI MSPM0G3507 | 仅作为步进电机专项参考，避免 GPL 代码直接并入主线 |
 
 ## 后续搜索方向
 

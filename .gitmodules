@@ -172,3 +172,21 @@
 [submodule "待整理的文件夹/github/ergouzi332__26_TI_MSPM0G3507"]
 	path = 待整理的文件夹/github/ergouzi332__26_TI_MSPM0G3507
 	url = https://github.com/ergouzi332/26_TI_MSPM0G3507.git
+[submodule "待整理的文件夹/github/DQ103__mspm0-car-2024-h"]
+	path = 待整理的文件夹/github/DQ103__mspm0-car-2024-h
+	url = https://github.com/DQ103/mspm0-car-2024-h.git
+[submodule "待整理的文件夹/github/686my686__MSPM0G3507-AutoCar"]
+	path = 待整理的文件夹/github/686my686__MSPM0G3507-AutoCar
+	url = https://github.com/686my686/MSPM0G3507-AutoCar.git
+[submodule "待整理的文件夹/github/Ju4tdo1__MSPM0G3507_FreeRTOS"]
+	path = 待整理的文件夹/github/Ju4tdo1__MSPM0G3507_FreeRTOS
+	url = https://github.com/Ju4tdo1/MSPM0G3507_FreeRTOS.git
+[submodule "待整理的文件夹/github/VincentttWang__NUEDC_2025"]
+	path = 待整理的文件夹/github/VincentttWang__NUEDC_2025
+	url = https://github.com/VincentttWang/NUEDC_2025.git
+[submodule "待整理的文件夹/github/xieyangyingshutong__25xiaoche"]
+	path = 待整理的文件夹/github/xieyangyingshutong__25xiaoche
+	url = https://github.com/xieyangyingshutong/25xiaoche.git
+[submodule "待整理的文件夹/github/Tacrine__TMC2209_StepMotor_Driver"]
+	path = 待整理的文件夹/github/Tacrine__TMC2209_StepMotor_Driver
+	url = https://github.com/Tacrine/TMC2209_StepMotor_Driver.git

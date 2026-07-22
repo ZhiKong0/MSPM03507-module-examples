@@ -139,3 +139,26 @@
 
 - `VincentttWang/NUEDC_2025`：`git ls-remote`/clone 过程中 GitHub 连接重置，暂不导入 submodule。
 - `lxl2024666/EDC_ti`：普通 clone 与 `--depth 1` 浅克隆均连接重置，已确认未留下半成目录。
+
+## 2026-07-22 第七轮持续检索与补导入
+
+### 已完成
+
+- 宽搜 `MSPM0 car`、`MSPM0 smart car`、`MSPM0 line follower`、`MSPM0 2025E`、`天猛星 MSPM0G3507` 等关键词，新增高相关候选：
+  - `DQ103/mspm0-car-2024-h`
+- `DQ103/mspm0-car-2024-h` 已确认非空、MIT 许可；含 CMake、FreeRTOS、SysConfig、Control、Drivers、tools，以及多个小车调试分支。
+- 从待重试池补导入成功 5 个 GitHub submodule：
+  - `686my686/MSPM0G3507-AutoCar`
+  - `Ju4tdo1/MSPM0G3507_FreeRTOS`
+  - `VincentttWang/NUEDC_2025`
+  - `xieyangyingshutong/25xiaoche`
+  - `Tacrine/TMC2209_StepMotor_Driver`
+- 本轮总新增 submodule：6 个。
+- 当前 `.gitmodules` 有效候选入口：64 个。
+
+### 未完成
+
+- `lxl2024666/EDC_ti`：本轮 `git ls-remote` 一度可达，但 submodule 普通 clone 仍失败，错误为无法连接 GitHub 443 端口；继续保留 source-card。
+- `RitsuYi/MSPM0G3507_VSCODE` 与 `WYJxxoo/MSPM0G3507_syscfg_freeRTOS`：本轮 `ls-remote` 仍不可达。
+- `kokona23/mspm0G3507cartest_record`：本轮 clone 连接重置，继续保留待重试。
+- `sbjsw334/TI_MSPM0G3507_Project`：本轮 clone 连接 GitHub 443 失败，继续保留待重试。
