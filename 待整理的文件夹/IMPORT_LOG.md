@@ -206,3 +206,21 @@
 
 - `sbjsw334/TI_MSPM0G3507_Project`：本轮 clone 失败，错误为无法连接 `github.com:443`；已确认没有残留工作树目录或 `.git/modules` 目录，继续保留待重试。
 - `jeffrey070318/MSPM0G3507_BASIC-`：此前在 Windows 子模块导入后出现 `git-lfs/filter-process` 和索引异常；本轮暂不直接导入，后续需要独立路径或浅克隆专项处理。
+
+## 2026-07-22 第十轮持续检索
+
+### 已完成
+
+- 使用 Agent Reach 的 GitHub/Exa 路由继续检索 `MSPM0G3507 循迹`、`MSPM0G3507 灰度`、`MSPM0G3507 TB6612 编码器 PID 小车例程`、`MSPM0G3507 电赛 H题 小车 源码 GitCode Gitee` 等关键词。
+- 新增 2 个 GitHub submodule：
+  - `zby123581-maker/mspm0g3507-tracking-car`
+  - `choucisan/24Car`
+- 新增 1 个页面/附件型 source-card：
+  - `https://oshwhub.com/tyma110/ji-cheng-ban-kuai`
+- 当前 `.gitmodules` 有效候选入口：75 个。
+
+### 备注
+
+- `choucisan/24Car` 的 GitHub 描述中芯片名写作 `SMPG03507`，但全网摘要指向 2024 电赛 H 自动行驶小车；先以候选导入，后续需要源码级核验。
+- 立创 `tyma110/ji-cheng-ban-kuai` 页面标注 GPL-3.0，并提供 `workspace_ccstheia.rar` 附件；本轮只登记 source-card，不直接下载或复制附件。
+- CSDN 文库/博客命中若干资源包或文章，但下载权限、许可证和原创性不清，暂不导入代码，仅作为后续人工溯源线索。

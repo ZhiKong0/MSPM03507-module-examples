@@ -217,3 +217,9 @@
 [submodule "待整理的文件夹/github/WYJxxoo__MSPM0G3507_syscfg_freeRTOS"]
 	path = 待整理的文件夹/github/WYJxxoo__MSPM0G3507_syscfg_freeRTOS
 	url = https://github.com/WYJxxoo/MSPM0G3507_syscfg_freeRTOS.git
+[submodule "待整理的文件夹/github/zby123581-maker__mspm0g3507-tracking-car"]
+	path = 待整理的文件夹/github/zby123581-maker__mspm0g3507-tracking-car
+	url = https://github.com/zby123581-maker/mspm0g3507-tracking-car.git
+[submodule "待整理的文件夹/github/choucisan__24Car"]
+	path = 待整理的文件夹/github/choucisan__24Car
+	url = https://github.com/choucisan/24Car.git

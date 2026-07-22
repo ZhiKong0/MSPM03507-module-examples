@@ -138,6 +138,13 @@
 | C | TI_MSPM0G3507_Project | https://github.com/sbjsw334/TI_MSPM0G3507_Project | 待重试 | 未声明 | 状态机五段电赛控制类项目 | 第九轮 clone 失败：无法连接 github.com:443；确认无残留目录后继续待重试 |
 | C | automatic-driving-car-based-on-g | https://oshwhub.com/relinking/automatic-driving-car-based-on-g | source-card | 未确认 | 立创开源硬件平台，地猛星 MSPM0G3507 自动行驶小车，含电源板/主控板/循迹板和附件 `Car_v4.1.zip` | 页面附件型来源，后续人工确认下载权限和许可证 |
 
+## 第十轮持续检索候选
+| 优先级 | 名称 | 来源 | 导入方式 | 许可证 | 适配价值 | 下一步 |
+|---|---|---|---|---|---|---|
+| B | mspm0g3507-tracking-car | https://github.com/zby123581-maker/mspm0g3507-tracking-car | submodule | 未声明 | MSPM0G3507 循迹小车，描述明确使用感为科技八路灰度循迹模块 | 抽查灰度模块读取、底盘控制和任务入口 |
+| C | 24Car | https://github.com/choucisan/24Car | submodule | MIT | 2024 电赛 H 题自动行驶小车候选；仓库描述芯片名写作 `SMPG03507`，需核验源码是否为 MSPM0G3507 | 抽查目标配置、SysConfig/CCS 工程和芯片型号 |
+| C | ji-cheng-ban-kuai | https://oshwhub.com/tyma110/ji-cheng-ban-kuai | source-card | GPL-3.0 | 立创开源硬件，电赛 H 题自动行驶小车，含差速/舵机两种方案和附件 `workspace_ccstheia.rar` | 页面附件型来源，后续人工确认下载权限、许可证覆盖和代码完整性 |
+
 ## 后续搜索方向
 
 - MSPM0G3507 + TB6612 / DRV8833 / PWM / encoder
