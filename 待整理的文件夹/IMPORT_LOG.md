@@ -79,3 +79,28 @@
 - `Students800/Find_box_car` 是空仓库，不能形成有效 submodule；保留为 source-card。
 - `iwiwb/MSPM0-keil-project` 和 `QwQuintOO/MSPM0G3507_Template` 本轮因 GitHub 连接重置未导入，已保留为待重试。
 - `WYJxxoo/MSPM0G3507_syscfg_freeRTOS` 和 `xieyangyingshutong/25xiaoche` 仍保留为待重试。
+
+## 2026-07-22 第四轮持续检索
+
+### 已完成
+
+- 重试导入成功：
+  - `iwiwb/MSPM0-keil-project`
+  - `QwQuintOO/MSPM0G3507_Template`
+- 新增第四批候选：
+  - `xujh666/mspm0g3507-line-tracking-car_v1.0`
+  - `xujh666/mspm0g3507-line-tracking-car`
+  - `chowhound-eat/my-car-electronic-contest-prep`
+  - `Yang-runze/mspm0g3507-smart-car`
+  - `summer-xiying/MOTOR_PID_25H`
+  - `dawn-qvq/25-e-`
+  - `aluomx/Nuedc-code`
+  - `Eliauk-Camelia/mspm0g3507-imu-lcd`
+- 当前 `.gitmodules` 有效候选入口：53 个。
+
+### 未完成
+
+- `WYJxxoo/MSPM0G3507_syscfg_freeRTOS` 与 `xieyangyingshutong/25xiaoche` 本轮仍因 GitHub 连接失败未导入。
+- `kokona23/mspm0G3507cartest_record` 本轮 GitHub 连接重置。
+- `sbjsw334/TI_MSPM0G3507_Project` clone 超时，已结束残留 clone 进程并清理半成目录。
+- `Tacrine/TMC2209_StepMotor_Driver` 尚未导入，作为步进电机专项候选保留。

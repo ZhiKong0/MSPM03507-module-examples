@@ -127,3 +127,33 @@
 [submodule "待整理的文件夹/github/likechen0__four-drive-yabo-sensor"]
 	path = 待整理的文件夹/github/likechen0__four-drive-yabo-sensor
 	url = https://github.com/likechen0/four-drive-yabo-sensor.git
+[submodule "待整理的文件夹/github/iwiwb__MSPM0-keil-project"]
+	path = 待整理的文件夹/github/iwiwb__MSPM0-keil-project
+	url = https://github.com/iwiwb/MSPM0-keil-project.git
+[submodule "待整理的文件夹/github/QwQuintOO__MSPM0G3507_Template"]
+	path = 待整理的文件夹/github/QwQuintOO__MSPM0G3507_Template
+	url = https://github.com/QwQuintOO/MSPM0G3507_Template.git
+[submodule "待整理的文件夹/github/xujh666__mspm0g3507-line-tracking-car_v1.0"]
+	path = 待整理的文件夹/github/xujh666__mspm0g3507-line-tracking-car_v1.0
+	url = https://github.com/xujh666/mspm0g3507-line-tracking-car_v1.0.git
+[submodule "待整理的文件夹/github/xujh666__mspm0g3507-line-tracking-car"]
+	path = 待整理的文件夹/github/xujh666__mspm0g3507-line-tracking-car
+	url = https://github.com/xujh666/mspm0g3507-line-tracking-car.git
+[submodule "待整理的文件夹/github/chowhound-eat__my-car-electronic-contest-prep"]
+	path = 待整理的文件夹/github/chowhound-eat__my-car-electronic-contest-prep
+	url = https://github.com/chowhound-eat/my-car-electronic-contest-prep.git
+[submodule "待整理的文件夹/github/Yang-runze__mspm0g3507-smart-car"]
+	path = 待整理的文件夹/github/Yang-runze__mspm0g3507-smart-car
+	url = https://github.com/Yang-runze/mspm0g3507-smart-car.git
+[submodule "待整理的文件夹/github/summer-xiying__MOTOR_PID_25H"]
+	path = 待整理的文件夹/github/summer-xiying__MOTOR_PID_25H
+	url = https://github.com/summer-xiying/MOTOR_PID_25H.git
+[submodule "待整理的文件夹/github/dawn-qvq__-e-2025"]
+	path = 待整理的文件夹/github/dawn-qvq__-e-2025
+	url = https://github.com/dawn-qvq/-e-2025.git
+[submodule "待整理的文件夹/github/aluomx__Nuedc-code"]
+	path = 待整理的文件夹/github/aluomx__Nuedc-code
+	url = https://github.com/aluomx/Nuedc-code.git
+[submodule "待整理的文件夹/github/Eliauk-Camelia__mspm0g3507-imu-lcd"]
+	path = 待整理的文件夹/github/Eliauk-Camelia__mspm0g3507-imu-lcd
+	url = https://github.com/Eliauk-Camelia/mspm0g3507-imu-lcd.git
