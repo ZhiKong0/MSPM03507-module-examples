@@ -118,6 +118,17 @@
 | B | 25xiaoche | https://github.com/xieyangyingshutong/25xiaoche | submodule | 未声明 | Keil5 + TI SysConfig，覆盖 2025 电赛小车大部分功能 | 抽查功能覆盖面和可移植模块 |
 | C | TMC2209_StepMotor_Driver | https://github.com/Tacrine/TMC2209_StepMotor_Driver | submodule | GPL-3.0 | TMC2209 步进电机驱动，支持 STM32 和 TI MSPM0G3507 | 仅作为步进电机专项参考，避免 GPL 代码直接并入主线 |
 
+## 第八批候选
+| 优先级 | 名称 | 来源 | 导入方式 | 许可证 | 适配价值 | 下一步 |
+|---|---|---|---|---|---|---|
+| A | mspm0g-contest-skill | https://github.com/2262727886-stack/mspm0g-contest-skill | submodule | 未声明 | MSPM0G3507 电赛智能小车全栈开发套件，覆盖 TB6612、MPU6050/IMU601、K230、蓝牙调参、PID、OLED、25E/24H 方案 | 优先抽查固件基线、K230 串口协议和模块模板 |
+| A | MSPM0G3507_RoboCar | https://gitee.com/szturin/mspm0-g3507_-robo-car | submodule | 未声明 | Gitee 智能车代码，含 Driver/System 分层和串口 BSL/80MHz 串口注意事项 | 抽查片外/片内驱动封装和串口稳定性经验 |
+| B | electric-racing-car | https://gitee.com/laoguaige/electric-racing-car | submodule | CC BY-NC-SA 4.0 | 基于 TI MSPM0G3507 的 2024 电赛 H 题自动行驶小车 | 仅作非商业学习参考，抽查 24H 自动行驶小车结构 |
+| B | lp_mspm0g3507_mini_examples | https://gitee.com/namelesstech/lp_mspm0g3507_mini_examples | submodule | GPL-3.0 | 无名创新 MSPM0G3507 核心板例程，含 OLED、UART、PWM、编码器测速、MPU6050、LCD、EEPROM/Flash 等 | GPL 代码仅作参考；拆基础外设例程目录 |
+| B | 24电赛H题 MSPM0G3507 | https://gitcode.com/open-source-toolkit/b12ea | submodule | MIT | GitCode/AtomGit 24 电赛 H 题循迹小车源码包，仓库含 `24电赛H题 MSPM0G3507.zip` | 解压前先保留原仓库来源；后续核验 zip 内容和许可证覆盖 |
+| B | ti-contest | https://github.com/JamieK32/ti-contest | 待重试 | 未声明 | 全国大学生电子设计竞赛 2021F/2022C/2023E/2024H 统一 MSPM0G3507 智能车平台，含 MaixCam 和硬件设计目录 | 本轮 `ls-remote` 可达但 clone 连接重置，后续重试 submodule |
+| C | automatic-driving-car-based-on-g | https://oshwhub.com/relinking/automatic-driving-car-based-on-g | source-card | 未确认 | 立创开源硬件平台，地猛星 MSPM0G3507 自动行驶小车，含电源板/主控板/循迹板和附件 `Car_v4.1.zip` | 页面附件型来源，后续人工确认下载权限和许可证 |
+
 ## 后续搜索方向
 
 - MSPM0G3507 + TB6612 / DRV8833 / PWM / encoder
@@ -126,3 +137,4 @@
 - MSPM0G3507 + OLED 菜单 / UART 蓝牙调参
 - MSPM0G3507 + K230 / MaixCam / OpenMV 视觉接口
 - MSPM0G3507 + CMake / GCC / pyOCD / probe-rs
+- Gitee / GitCode / 立创开源硬件平台上的 MSPM0G3507 电赛小车附件和镜像仓库

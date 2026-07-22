@@ -190,3 +190,18 @@
 [submodule "待整理的文件夹/github/Tacrine__TMC2209_StepMotor_Driver"]
 	path = 待整理的文件夹/github/Tacrine__TMC2209_StepMotor_Driver
 	url = https://github.com/Tacrine/TMC2209_StepMotor_Driver.git
+[submodule "待整理的文件夹/gitee/szturin__mspm0-g3507_-robo-car"]
+	path = 待整理的文件夹/gitee/szturin__mspm0-g3507_-robo-car
+	url = https://gitee.com/szturin/mspm0-g3507_-robo-car.git
+[submodule "待整理的文件夹/gitee/laoguaige__electric-racing-car"]
+	path = 待整理的文件夹/gitee/laoguaige__electric-racing-car
+	url = https://gitee.com/laoguaige/electric-racing-car.git
+[submodule "待整理的文件夹/gitee/namelesstech__lp_mspm0g3507_mini_examples"]
+	path = 待整理的文件夹/gitee/namelesstech__lp_mspm0g3507_mini_examples
+	url = https://gitee.com/namelesstech/lp_mspm0g3507_mini_examples.git
+[submodule "待整理的文件夹/github/2262727886-stack__mspm0g-contest-skill"]
+	path = 待整理的文件夹/github/2262727886-stack__mspm0g-contest-skill
+	url = https://github.com/2262727886-stack/mspm0g-contest-skill.git
+[submodule "待整理的文件夹/gitcode/open-source-toolkit__b12ea"]
+	path = 待整理的文件夹/gitcode/open-source-toolkit__b12ea
+	url = https://gitcode.com/open-source-toolkit/b12ea.git

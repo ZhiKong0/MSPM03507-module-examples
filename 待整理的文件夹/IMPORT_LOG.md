@@ -162,3 +162,31 @@
 - `RitsuYi/MSPM0G3507_VSCODE` 与 `WYJxxoo/MSPM0G3507_syscfg_freeRTOS`：本轮 `ls-remote` 仍不可达。
 - `kokona23/mspm0G3507cartest_record`：本轮 clone 连接重置，继续保留待重试。
 - `sbjsw334/TI_MSPM0G3507_Project`：本轮 clone 连接 GitHub 443 失败，继续保留待重试。
+
+## 2026-07-22 第八轮全网/Gitee/GitCode 检索
+
+### 已完成
+
+- 使用 Agent Reach 的 Exa 全网语义搜索，关键词覆盖 `MSPM0G3507 电赛 小车 例程 代码 Gitee`、`MSPM0G3507 循迹 小车 代码`。
+- 新增 5 个可 Git 拉取的 submodule：
+  - `https://gitee.com/szturin/mspm0-g3507_-robo-car.git`
+  - `https://gitee.com/laoguaige/electric-racing-car.git`
+  - `https://gitee.com/namelesstech/lp_mspm0g3507_mini_examples.git`
+  - `https://github.com/2262727886-stack/mspm0g-contest-skill.git`
+  - `https://gitcode.com/open-source-toolkit/b12ea.git`
+- 新增 1 个页面/附件型 source-card：
+  - `https://oshwhub.com/relinking/automatic-driving-car-based-on-g`
+- 当前 `.gitmodules` 有效候选入口：69 个。
+
+### 许可证/使用提示
+
+- `laoguaige/electric-racing-car`：License 文件为 CC BY-NC-SA 4.0，仅作非商业学习参考。
+- `namelesstech/lp_mspm0g3507_mini_examples`：License 文件为 GPL-3.0，后续不得直接并入非 GPL 主线。
+- `open-source-toolkit/b12ea`：License 文件为 MIT，但其仓库内 zip 的内容仍需后续解压核验。
+- `szturin/mspm0-g3507_-robo-car`：License 文件为空，按未声明处理。
+- `2262727886-stack/mspm0g-contest-skill`：未发现顶层 License 文件，按未声明处理。
+
+### 未完成
+
+- `JamieK32/ti-contest`：`ls-remote` 可达，仓库页面可读，但本轮 submodule clone 连接重置；已登记为待重试。
+- 立创开源硬件平台 `automatic-driving-car-based-on-g`：页面提示有附件 `Car_v4.1.zip`，但属于页面附件型来源，本轮不直接下载或复制，先登记 source-card。
