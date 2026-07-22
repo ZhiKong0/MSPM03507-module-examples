@@ -44,3 +44,18 @@
 - 远程 GitHub 仓库仍未创建：本机 `gh` token 缺少创建仓库所需 scope。
 - `WYJxxoo/MSPM0G3507_syscfg_freeRTOS` 与 `xieyangyingshutong/25xiaoche` clone 中断，已作为待重试候选记录。
 - 仍有若干检索到但未导入的候选：OpenMV 视觉追踪、校级赛题合集、2026 Vehicle、跟踪目标小车、Keil 闭环工程等。
+
+## 2026-07-22 远程仓库创建
+
+### 已完成
+
+- 已通过登录态 Chrome 网页创建 GitHub 私有仓库：`https://github.com/ZhiKong0/MSPM03507-module-examples`
+- 已将本地仓库设置远程：
+  - `origin = https://github.com/ZhiKong0/MSPM03507-module-examples.git`
+- 已推送 `main` 分支到远程，并设置本地 `main` 跟踪 `origin/main`。
+
+### 命名说明
+
+- 用户指定的中文仓库显示名为：`MSPM03507各模块例程代码`。
+- GitHub 新仓库页面实测限制仓库名只能包含 ASCII 字母、数字、`.`、`-`、`_`。
+- 因此远程仓库 slug 使用兼容名称：`MSPM03507-module-examples`；中文正式名称继续保留在 README、描述和候选文档中。
