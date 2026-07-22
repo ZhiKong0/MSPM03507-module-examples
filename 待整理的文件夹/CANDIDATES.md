@@ -31,10 +31,47 @@
 | B | SeekFree_MSPM0G3507_Opensource_Library | https://github.com/woai66/SeekFree_MSPM0G3507_Opensource_Library | submodule | 未声明 | 2025 TI 板电赛工程/逐飞库方向 | 检查可复用驱动和工程结构 |
 | B | ros2car_mspm0 | https://github.com/Pansamic/ros2car_mspm0 | submodule | 未声明 | MSPM0G3507 直流电机小车驱动，可能适合上位机/ROS2 接口 | 看串口协议和底盘控制 |
 | B | Dual-vehicle-Collaborative-Intelligent-Medicine-Delivery-Cart | https://github.com/CXCXHH/Dual-vehicle-Collaborative-Intelligent-Medicine-Delivery-Cart | submodule | 未声明 | 双车协同、K230/MaixCam、PID、编码器、灰度、ZigBee，参考 2021 F 题 | 作为双车协同扩展候选 |
-| C | TI2026_jy61p_car_temp_proj | https://github.com/Ykdzds/TI2026_jy61p_car_temp_proj | 待重试 | 未声明 | 2026 天猛星 MSPM0G3507 小车模板，JY61P、蓝牙 PID 调试 | GitHub 连接超时，后续重试导入 |
+| C | TI2026_jy61p_car_temp_proj | https://github.com/Ykdzds/TI2026_jy61p_car_temp_proj | submodule | 未声明 | 2026 天猛星 MSPM0G3507 小车模板，JY61P、蓝牙 PID 调试 | 检查蓝牙在线 PID 调试协议 |
 | C | mspm0g3507_project | https://github.com/Zlxwy/mspm0g3507_project | submodule | 未声明 | MSPM0G3507 工程集合 | 后续抽查结构 |
 | C | TI_mspm0G3507_balance_car | https://github.com/huber2025/TI_mspm0G3507_balance_car | submodule | 未声明 | 2026 校赛 TI 主控平衡车 | 作为平衡车控制参考 |
 | C | TI_MSPM0G3507_Trace_Tracking_Module | https://github.com/Adnis018/TI_MSPM0G3507_Trace_Tracking_Module | submodule | 未声明 | PID 巡线小车母版 | 对比巡线 PID 实现 |
+
+## 第三批候选
+
+| 优先级 | 名称 | 来源 | 导入方式 | 许可证 | 适配价值 | 下一步 |
+|---|---|---|---|---|---|---|
+| A | littlecar-mspm0g3507 | https://github.com/termcczec/littlecar-mspm0g3507 | submodule | 未声明 | MSPM0G3507 小车，含驱动测试和完整应用描述 | 扫描驱动测试用例和主控应用结构 |
+| A | MSPM0_Car | https://github.com/gugugu531/MSPM0_Car | submodule | 未声明 | MSPM0G3507 小车，可导入 CCS ticlang 和 Keil5 | 对比 CCS/Keil 双工程组织方式 |
+| A | mspm0g3507-irtracking-car | https://github.com/shu005/mspm0g3507-irtracking-car | submodule | 未声明 | 红外/灰度循迹小车候选 | 拆巡线传感器读取和控制逻辑 |
+| A | M0_Car_Project | https://github.com/CheeeezBlue/M0_Car_Project | submodule | 未声明 | 天猛星 MSPM0G3507 电赛智能小车 | 抽查底盘和任务状态机 |
+| A | TI-Cup-2024-ProblemH-AutoCar | https://github.com/bigandstone/TI-Cup-2024-ProblemH-AutoCar | submodule | 未声明 | 2024 TI 电赛 H 题自动驾驶小车，灰度+IMU 四任务 | 重点看四任务路径与 IMU 修正 |
+| A | MSPM0G3507-Car | https://github.com/5ee511/MSPM0G3507-Car | submodule | 未声明 | 八路灰度直角弯巡线，TB6612、编码器速度 PI、巡线 PD | 适合拆成灰度、速度环、巡线 PD 模块 |
+| B | Motor_Queen | https://github.com/Cttangg/Motor_Queen | submodule | 未声明 | TI MSPM0G3507 track tracking car | 对比小车底层结构 |
+| B | Metal-wire-tracking-car-Based-on-mspm0g3507 | https://github.com/bigandstone/Metal-wire-tracking-car-Based-on-mspm0g3507 | submodule | 未声明 | MSPM0G3507 金属丝传感器循迹，参考 2016 TI 杯控制题 | 作为非黑线循迹题型参考 |
+| B | MSPM0G3507_MOTORCONTROL | https://github.com/QwQuintOO/MSPM0G3507_MOTORCONTROL | submodule | 未声明 | MSPM0G3507 电机控制候选 | 抽取电机控制和 PWM/方向封装 |
+| B | simple-standard-car | https://github.com/giaoLRL/simple-standard-car | submodule | 未声明 | 八路灰度循迹小车项目 | 对比八路灰度标准车实现 |
+| B | mspm0g3507-modules | https://github.com/glf-loser/mspm0g3507-modules | submodule | 未声明 | JY61P IMU 与 Track Motor 控制模块 | 拆 JY61P 姿态和电机控制接口 |
+| B | TMX_MSPM0G3507_ProjectTemplate | https://github.com/persica123/TMX_MSPM0G3507_ProjectTemplate | submodule | 未声明 | MSPM0G3507 智能车工程模板 | 作为天猛星工程模板候选 |
+| B | xunjixiaoche | https://github.com/juliantreee/xunjixiaoche | submodule | 未声明 | MSPM0G3507 line follower | 作为简化巡线小车参考 |
+| B | MSPM0G3507_examples | https://github.com/Comet966/MSPM0G3507_examples | submodule | 未声明 | LP-MSPM0G3507 示例集合 | 用于补外设基础例程 |
+| B | MSPM0_Driver_Lib | https://github.com/dzzz-qcxf-studio/MSPM0_Driver_Lib | submodule | 未声明 | 从实际跑通电赛项目提取的天猛星模块化驱动库 | 优先扫描驱动目录和已验证模块 |
+| B | er2024 | https://github.com/zhujs1103/er2024 | submodule | 未声明 | ER2024 电赛 MSPM0G3507 巡线+作业一体化平台 | 参考项目管理和平台化结构 |
+
+## 待重试/待抽查候选
+
+| 优先级 | 名称 | 来源 | 状态 | 适配价值 | 下一步 |
+|---|---|---|---|---|---|
+| B | MSPM0G3507_syscfg_freeRTOS | https://github.com/WYJxxoo/MSPM0G3507_syscfg_freeRTOS | 待重试 | 电机控制、PID、编码器、循迹、FreeRTOS 示例 | 上次 clone 中断，清理后再导入 |
+| B | 25xiaoche | https://github.com/xieyangyingshutong/25xiaoche | 待重试 | 2025 电赛小车大部分功能，Keil + SysConfig | 上次 clone 中断，后续小批量重试 |
+| B | nuedc_control_car_freertos_template | https://github.com/xy1092/nuedc_control_car_freertos_template | 待导入 | Clean calibrated MSPM0G3507 FreeRTOS control car template | 下一轮导入 |
+| B | TI-Cup-School-Competitions | https://github.com/bigandstone/TI-Cup-School-Competitions | 待导入 | TI 电赛校级选拔赛历届赛题代码合集 | 下一轮导入 |
+| B | Grayscale-Line-Follower-Robot | https://github.com/military-doge/Grayscale-Line-Follower-Robot | 待导入 | MSPM0G3507 灰度循迹小车 | 下一轮导入 |
+| B | Find_box_car | https://github.com/Students800/Find_box_car | 待导入 | OpenMV + MSPM0G3507 视觉追踪 | 下一轮导入 |
+| B | Nuedc2026-MSPM0G3507-Vehicle | https://github.com/chenjingquan-hntb/Nuedc2026-MSPM0G3507-Vehicle | 待导入 | 2026 NUEDC MSPM0G3507 Vehicle Project | 下一轮导入 |
+| B | mspm0g3507-tracking-target-car | https://github.com/asdfguai/mspm0g3507-tracking-target-car | 待导入 | 面向 2025 E 题跟踪目标小车 | 下一轮导入 |
+| B | MSPM0-keil-project | https://github.com/iwiwb/MSPM0-keil-project | 待导入 | 速度闭环、角度闭环、OLED、红外循迹 | 下一轮导入 |
+| C | four-drive-yabo-sensor | https://github.com/likechen0/four-drive-yabo-sensor | 待导入 | 四驱小车，亚博 8 路灰度传感器 | 后续按四驱需求再导入 |
+| C | MSPM0G3507_Template | https://github.com/QwQuintOO/MSPM0G3507_Template | 待导入 | VSCode GCC + EIDE + OpenOCD + SysConfig 模板 | 后续按工具链整理需要导入 |
 
 ## 后续搜索方向
 
