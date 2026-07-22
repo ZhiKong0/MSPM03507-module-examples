@@ -223,3 +223,15 @@
 [submodule "待整理的文件夹/github/choucisan__24Car"]
 	path = 待整理的文件夹/github/choucisan__24Car
 	url = https://github.com/choucisan/24Car.git
+[submodule "待整理的文件夹/github/kentdelpino__ThreadX_on_TI_MSPM0G"]
+	path = 待整理的文件夹/github/kentdelpino__ThreadX_on_TI_MSPM0G
+	url = https://github.com/kentdelpino/ThreadX_on_TI_MSPM0G.git
+[submodule "待整理的文件夹/github/Ctrl-CVCV__TI-EIDE-Example"]
+	path = 待整理的文件夹/github/Ctrl-CVCV__TI-EIDE-Example
+	url = https://github.com/Ctrl-CVCV/TI-EIDE-Example.git
+[submodule "待整理的文件夹/github/qwqb233__Scratch-head"]
+	path = 待整理的文件夹/github/qwqb233__Scratch-head
+	url = https://github.com/qwqb233/Scratch-head.git
+[submodule "待整理的文件夹/github/guyukk__mspm0g3507"]
+	path = 待整理的文件夹/github/guyukk__mspm0g3507
+	url = https://github.com/guyukk/mspm0g3507.git

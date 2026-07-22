@@ -145,6 +145,15 @@
 | C | 24Car | https://github.com/choucisan/24Car | submodule | MIT | 2024 电赛 H 题自动行驶小车候选；仓库描述芯片名写作 `SMPG03507`，需核验源码是否为 MSPM0G3507 | 抽查目标配置、SysConfig/CCS 工程和芯片型号 |
 | C | ji-cheng-ban-kuai | https://oshwhub.com/tyma110/ji-cheng-ban-kuai | source-card | GPL-3.0 | 立创开源硬件，电赛 H 题自动行驶小车，含差速/舵机两种方案和附件 `workspace_ccstheia.rar` | 页面附件型来源，后续人工确认下载权限、许可证覆盖和代码完整性 |
 
+## 第十一轮持续检索候选
+| 优先级 | 名称 | 来源 | 导入方式 | 许可证 | 适配价值 | 下一步 |
+|---|---|---|---|---|---|---|
+| A | 2025-e-smartcar | https://github.com/wengqidaifeng/2025-e-smartcar | 待重试 | 未声明 | 2025 电赛 E 题双主控小车与云台项目，目录含 `car`、`gimbal`、`blogs` 和 MSPM0G3507 工程文件 | 本轮 `ls-remote` 可达但 submodule clone 多次 443/RPC 失败，后续单仓重试 |
+| B | mspm0g3507 | https://github.com/guyukk/mspm0g3507 | submodule | 未声明 | 近期 MSPM0G3507 通用工程，含 `App`、`Bsp`、`Lib`、`MDK-ARM`、`TI_MSP_DL_CONFIG` | 抽查 BSP/Lib 可复用外设封装 |
+| B | ThreadX_on_TI_MSPM0G | https://github.com/kentdelpino/ThreadX_on_TI_MSPM0G | submodule | 未声明 | Eclipse ThreadX on TI MSPM0L/MSPM0G 示例，含 MSPM0G35xx linker 和 ThreadX 目录 | 作为 RTOS/任务模型参考，不直接替代 FreeRTOS 主线 |
+| B | TI-EIDE-Example | https://github.com/Ctrl-CVCV/TI-EIDE-Example | submodule | 未声明 | MSPM0G3507 EIDE/CMake/GCC/CCS 示例工程，含 `CMakeLists.txt`、`.eide`、`empty.syscfg` | 对比 EIDE 与本地 CMake/GCC 工具链组织 |
+| C | Scratch-head | https://github.com/qwqb233/Scratch-head | submodule | 未声明 | 多主控项目，含 `mspm/Chassis_controller` 底盘控制目录 | 只抽查 MSPM 底盘控制部分，忽略无关 Raspberry Pi/K210/STM32 目录 |
+
 ## 后续搜索方向
 
 - MSPM0G3507 + TB6612 / DRV8833 / PWM / encoder

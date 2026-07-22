@@ -224,3 +224,24 @@
 - `choucisan/24Car` 的 GitHub 描述中芯片名写作 `SMPG03507`，但全网摘要指向 2024 电赛 H 自动行驶小车；先以候选导入，后续需要源码级核验。
 - 立创 `tyma110/ji-cheng-ban-kuai` 页面标注 GPL-3.0，并提供 `workspace_ccstheia.rar` 附件；本轮只登记 source-card，不直接下载或复制附件。
 - CSDN 文库/博客命中若干资源包或文章，但下载权限、许可证和原创性不清，暂不导入代码，仅作为后续人工溯源线索。
+
+## 2026-07-22 第十一轮持续检索
+
+### 已完成
+
+- 使用 Agent Reach 的 GitHub code search 反查 MSPM0G3507 工程结构与底盘模块，关键词覆盖 `empty_LP_MSPM0G3507_nortos_gcc.projectspec`、`bsp_motor_tb6612.c`、`project_template_baremetal.uvprojx MSPM0G3507` 等。
+- 新增 4 个 GitHub submodule：
+  - `guyukk/mspm0g3507`
+  - `kentdelpino/ThreadX_on_TI_MSPM0G`
+  - `Ctrl-CVCV/TI-EIDE-Example`
+  - `qwqb233/Scratch-head`
+- 当前 `.gitmodules` 有效候选入口：79 个。
+
+### 未完成
+
+- `wengqidaifeng/2025-e-smartcar`：仓库非空，描述为 2025 电赛 E 题双主控小车与云台项目，目录含 `car`、`gimbal`、`blogs`；本轮 `ls-remote` 可达，但 submodule clone 多次因 GitHub 443/RPC 连接失败中断，已确认无半成目录残留，继续保留待重试。
+
+### 备注
+
+- `Scratch-head` 是多主控混合仓库，本库只把 `mspm/Chassis_controller` 作为底盘控制参考。
+- `ThreadX_on_TI_MSPM0G` 属 RTOS/系统模板参考，后续不得直接把 ThreadX 当作电赛主线替换 FreeRTOS/CMake/GNU 方案。
