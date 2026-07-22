@@ -104,3 +104,23 @@
 - `kokona23/mspm0G3507cartest_record` 本轮 GitHub 连接重置。
 - `sbjsw334/TI_MSPM0G3507_Project` clone 超时，已结束残留 clone 进程并清理半成目录。
 - `Tacrine/TMC2209_StepMotor_Driver` 尚未导入，作为步进电机专项候选保留。
+
+## 2026-07-22 第五轮持续检索
+
+### 已完成
+
+- 继续通过 GitHub 检索 `MSPM0G3507`、小车、巡线、PID、FreeRTOS、VSCode/GCC 工程模板相关候选。
+- 新增第五批候选并导入 5 个 GitHub submodule：
+  - `ice-cream-1024/-MSPM0G3507_car_control`
+  - `xiaoshuai361/mspm0g3507_template`
+  - `Huai-jin-6/m0template`
+  - `Almighty42/MSPM0G3507-System-Library`
+  - `ergouzi332/26_TI_MSPM0G3507`
+- 当前 `.gitmodules` 有效候选入口：58 个。
+
+### 未完成
+
+- `686my686/MSPM0G3507-AutoCar`：clone 超时，已结束残留 `git-remote-https` 并清理半成目录。
+- `RitsuYi/MSPM0G3507_VSCODE`：GitHub 连接重置，保留待重试。
+- `Ju4tdo1/MSPM0G3507_FreeRTOS`：GitHub 连接重置，保留待重试。
+- `jeffrey070318/MSPM0G3507_BASIC-`：仓库内容高度相关，但本轮导入后在 Windows 子模块工作树中出现 `git-lfs filter-process` 残留和索引异常；已从索引撤回并清理工作目录，改为待重试候选。

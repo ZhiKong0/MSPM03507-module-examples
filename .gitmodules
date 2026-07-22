@@ -157,3 +157,18 @@
 [submodule "待整理的文件夹/github/Eliauk-Camelia__mspm0g3507-imu-lcd"]
 	path = 待整理的文件夹/github/Eliauk-Camelia__mspm0g3507-imu-lcd
 	url = https://github.com/Eliauk-Camelia/mspm0g3507-imu-lcd.git
+[submodule "待整理的文件夹/github/ice-cream-1024__-MSPM0G3507_car_control"]
+	path = 待整理的文件夹/github/ice-cream-1024__-MSPM0G3507_car_control
+	url = https://github.com/ice-cream-1024/-MSPM0G3507_car_control.git
+[submodule "待整理的文件夹/github/Huai-jin-6__m0template"]
+	path = 待整理的文件夹/github/Huai-jin-6__m0template
+	url = https://github.com/Huai-jin-6/m0template.git
+[submodule "待整理的文件夹/github/xiaoshuai361__mspm0g3507_template"]
+	path = 待整理的文件夹/github/xiaoshuai361__mspm0g3507_template
+	url = https://github.com/xiaoshuai361/mspm0g3507_template.git
+[submodule "待整理的文件夹/github/Almighty42__MSPM0G3507-System-Library"]
+	path = 待整理的文件夹/github/Almighty42__MSPM0G3507-System-Library
+	url = https://github.com/Almighty42/MSPM0G3507-System-Library.git
+[submodule "待整理的文件夹/github/ergouzi332__26_TI_MSPM0G3507"]
+	path = 待整理的文件夹/github/ergouzi332__26_TI_MSPM0G3507
+	url = https://github.com/ergouzi332/26_TI_MSPM0G3507.git

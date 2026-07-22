@@ -89,6 +89,19 @@
 | C | TI_MSPM0G3507_Project | https://github.com/sbjsw334/TI_MSPM0G3507_Project | 待重试 | 未声明 | 状态机五段电赛控制类项目 | 本轮 clone 超时后已清理半成目录 |
 | C | TMC2209_StepMotor_Driver | https://github.com/Tacrine/TMC2209_StepMotor_Driver | 待导入 | 未声明 | TMC2209 步进电机驱动，支持 MSPM0G3507/STM32 | 后续按步进电机需求导入 |
 
+## 第五批候选
+| 优先级 | 名称 | 来源 | 导入方式 | 许可证 | 适配价值 | 下一步 |
+|---|---|---|---|---|---|---|
+| A | -MSPM0G3507_car_control | https://github.com/ice-cream-1024/-MSPM0G3507_car_control | submodule | 未声明 | MSPM0G3507 小车/云台控制候选，仓库存在 `ELC_gimbal` 等分支线索 | 抽查底盘、云台、传感器接口是否可拆模块 |
+| B | mspm0g3507_template | https://github.com/xiaoshuai361/mspm0g3507_template | submodule | 未声明 | 近期更新的 MSPM0G3507 工程模板 | 对比 SysConfig、Keil/CCS 或 GCC 工程组织 |
+| B | m0template | https://github.com/Huai-jin-6/m0template | submodule | 未声明 | MSPM0G3507 FreeRTOS project template | 对比任务划分、启动文件、RTOS 配置 |
+| B | MSPM0G3507-System-Library | https://github.com/Almighty42/MSPM0G3507-System-Library | submodule | 未声明 | MSPM0G3507 系统库/基础封装候选 | 抽查外设驱动和目录完整性 |
+| B | 26_TI_MSPM0G3507 | https://github.com/ergouzi332/26_TI_MSPM0G3507 | submodule | 未声明 | 2026/TI/MSPM0G3507 相关近期项目 | 判断是否包含电赛控制题模块 |
+| C | MSPM0G3507_BASIC- | https://github.com/jeffrey070318/MSPM0G3507_BASIC- | 待重试 | 未声明 | 包含 CMake、FreeRTOS、BSP、motor、pid、oled、gray_sensor、vofa 等强相关目录，但本轮在 Windows 子模块导入后出现 git-lfs/索引异常 | 后续换浅克隆或独立路径重试，成功前不提交 submodule |
+| C | MSPM0G3507-AutoCar | https://github.com/686my686/MSPM0G3507-AutoCar | 待重试 | 未声明 | MSPM0G3507 AutoCar 候选 | 本轮 clone 超时，后续单仓重试 |
+| C | MSPM0G3507_VSCODE | https://github.com/RitsuYi/MSPM0G3507_VSCODE | 待重试 | 未声明 | 基于 VSCode 的 MSPM0G3507 项目 | 本轮 GitHub 连接重置，后续单仓重试 |
+| C | MSPM0G3507_FreeRTOS | https://github.com/Ju4tdo1/MSPM0G3507_FreeRTOS | 待重试 | 未声明 | MSPM0G3507 FreeRTOS 工程 | 本轮 GitHub 连接重置，后续单仓重试 |
+
 ## 后续搜索方向
 
 - MSPM0G3507 + TB6612 / DRV8833 / PWM / encoder
