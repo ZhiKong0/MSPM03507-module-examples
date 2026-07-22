@@ -245,3 +245,30 @@
 
 - `Scratch-head` 是多主控混合仓库，本库只把 `mspm/Chassis_controller` 作为底盘控制参考。
 - `ThreadX_on_TI_MSPM0G` 属 RTOS/系统模板参考，后续不得直接把 ThreadX 当作电赛主线替换 FreeRTOS/CMake/GNU 方案。
+
+## 2026-07-22 TI 官方 SDK 2.11.00.07 例程导入
+
+### 已完成
+
+- 从本地官方压缩包导入候选：`F:\QQchat_Files\mspm0_sdk_2_11_00_07.zip`
+- 新增目录：`待整理的文件夹/official_ti_sdk/mspm0_sdk_2_11_00_07/`
+- 导入 LP_MSPM0G3507 相关官方例程：
+  - `examples/nortos/LP_MSPM0G3507/`
+  - `examples/rtos/LP_MSPM0G3507/`
+- 同步最小源码/头文件依赖：
+  - `source/ti/driverlib/`，排除预编译库
+  - `source/ti/devices/msp/`
+  - `source/third_party/CMSIS/Core/Include/`
+- 保留官方许可和版本追踪文件：
+  - `license_mspm0_sdk_2_11_00_07.txt`
+  - `manifest_mspm0_sdk_2_11_00_07.html`
+  - `release_notes_mspm0_sdk_2_11_00_07.html`
+  - `known_issues_FAQ.html`
+  - `.metadata/product.json`
+- 实际写入：6,808 个文件，约 83.4 MB。
+- 排除：65 个 `.a/.bin/.out/.elf/.hex/.obj/.map` 等预编译库、镜像或构建产物。
+
+### 备注
+
+- 官方 gcc makefile 仍依赖本地同版 SDK 的 `imports.mak`、SysConfig 和预编译 `driverlib.a`；本仓库中的导入内容优先作为待整理官方源码候选，不替代完整 SDK 安装。
+- 后续优先从 `driverlib`、`msp_subsystems`、`bsl`、`demos/out_of_box`、`motor_control_*` 抽 GPIO/UART/I2C/SPI/PWM/QEI/ADC/BSL/电机控制模块。

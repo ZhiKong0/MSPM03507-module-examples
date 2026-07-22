@@ -163,3 +163,9 @@
 - MSPM0G3507 + K230 / MaixCam / OpenMV 视觉接口
 - MSPM0G3507 + CMake / GCC / pyOCD / probe-rs
 - Gitee / GitCode / 立创开源硬件平台上的 MSPM0G3507 电赛小车附件和镜像仓库
+
+## 官方 TI SDK 候选
+
+| 优先级 | 名称 | 来源 | 导入方式 | 许可证 | 适配价值 | 下一步 |
+|---|---|---|---|---|---|---|
+| A | TI MSPM0 SDK 2.11.00.07 LP_MSPM0G3507 官方例程 | `F:\QQchat_Files\mspm0_sdk_2_11_00_07.zip` | vendored-copy | TI 官方 SDK 许可 | 覆盖 LP_MSPM0G3507 的 NoRTOS/RTOS 官方外设例程、msp_subsystems、BSL、部分电机控制和官方工程模板，是后续整理 MSPM0G3507 各模块例程的基准来源 | 优先拆 GPIO/UART/I2C/SPI/PWM/QEI/ADC/BSL/电机控制；完整构建仍需同版 SDK、SysConfig、imports.mak 和本地预编译 driverlib |
