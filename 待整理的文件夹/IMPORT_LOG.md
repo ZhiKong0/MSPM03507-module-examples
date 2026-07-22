@@ -190,3 +190,19 @@
 
 - `JamieK32/ti-contest`：`ls-remote` 可达，仓库页面可读，但本轮 submodule clone 连接重置；已登记为待重试。
 - 立创开源硬件平台 `automatic-driving-car-based-on-g`：页面提示有附件 `Car_v4.1.zip`，但属于页面附件型来源，本轮不直接下载或复制，先登记 source-card。
+
+## 2026-07-22 第九轮待重试补导入
+
+### 已完成
+
+- 从前几轮待重试/source-card 池补导入成功 4 个 GitHub submodule：
+  - `JamieK32/ti-contest`
+  - `lxl2024666/EDC_ti`
+  - `RitsuYi/MSPM0G3507_VSCODE`
+  - `WYJxxoo/MSPM0G3507_syscfg_freeRTOS`
+- 当前 `.gitmodules` 有效候选入口：73 个。
+
+### 未完成
+
+- `sbjsw334/TI_MSPM0G3507_Project`：本轮 clone 失败，错误为无法连接 `github.com:443`；已确认没有残留工作树目录或 `.git/modules` 目录，继续保留待重试。
+- `jeffrey070318/MSPM0G3507_BASIC-`：此前在 Windows 子模块导入后出现 `git-lfs/filter-process` 和索引异常；本轮暂不直接导入，后续需要独立路径或浅克隆专项处理。

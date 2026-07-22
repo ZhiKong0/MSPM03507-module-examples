@@ -205,3 +205,15 @@
 [submodule "待整理的文件夹/gitcode/open-source-toolkit__b12ea"]
 	path = 待整理的文件夹/gitcode/open-source-toolkit__b12ea
 	url = https://gitcode.com/open-source-toolkit/b12ea.git
+[submodule "待整理的文件夹/github/JamieK32__ti-contest"]
+	path = 待整理的文件夹/github/JamieK32__ti-contest
+	url = https://github.com/JamieK32/ti-contest.git
+[submodule "待整理的文件夹/github/lxl2024666__EDC_ti"]
+	path = 待整理的文件夹/github/lxl2024666__EDC_ti
+	url = https://github.com/lxl2024666/EDC_ti.git
+[submodule "待整理的文件夹/github/RitsuYi__MSPM0G3507_VSCODE"]
+	path = 待整理的文件夹/github/RitsuYi__MSPM0G3507_VSCODE
+	url = https://github.com/RitsuYi/MSPM0G3507_VSCODE.git
+[submodule "待整理的文件夹/github/WYJxxoo__MSPM0G3507_syscfg_freeRTOS"]
+	path = 待整理的文件夹/github/WYJxxoo__MSPM0G3507_syscfg_freeRTOS
+	url = https://github.com/WYJxxoo/MSPM0G3507_syscfg_freeRTOS.git
