@@ -63,15 +63,15 @@
 |---|---|---|---|---|---|
 | B | MSPM0G3507_syscfg_freeRTOS | https://github.com/WYJxxoo/MSPM0G3507_syscfg_freeRTOS | 待重试 | 电机控制、PID、编码器、循迹、FreeRTOS 示例 | 上次 clone 中断，清理后再导入 |
 | B | 25xiaoche | https://github.com/xieyangyingshutong/25xiaoche | 待重试 | 2025 电赛小车大部分功能，Keil + SysConfig | 上次 clone 中断，后续小批量重试 |
-| B | nuedc_control_car_freertos_template | https://github.com/xy1092/nuedc_control_car_freertos_template | 待导入 | Clean calibrated MSPM0G3507 FreeRTOS control car template | 下一轮导入 |
-| B | TI-Cup-School-Competitions | https://github.com/bigandstone/TI-Cup-School-Competitions | 待导入 | TI 电赛校级选拔赛历届赛题代码合集 | 下一轮导入 |
-| B | Grayscale-Line-Follower-Robot | https://github.com/military-doge/Grayscale-Line-Follower-Robot | 待导入 | MSPM0G3507 灰度循迹小车 | 下一轮导入 |
-| B | Find_box_car | https://github.com/Students800/Find_box_car | 待导入 | OpenMV + MSPM0G3507 视觉追踪 | 下一轮导入 |
-| B | Nuedc2026-MSPM0G3507-Vehicle | https://github.com/chenjingquan-hntb/Nuedc2026-MSPM0G3507-Vehicle | 待导入 | 2026 NUEDC MSPM0G3507 Vehicle Project | 下一轮导入 |
-| B | mspm0g3507-tracking-target-car | https://github.com/asdfguai/mspm0g3507-tracking-target-car | 待导入 | 面向 2025 E 题跟踪目标小车 | 下一轮导入 |
-| B | MSPM0-keil-project | https://github.com/iwiwb/MSPM0-keil-project | 待导入 | 速度闭环、角度闭环、OLED、红外循迹 | 下一轮导入 |
-| C | four-drive-yabo-sensor | https://github.com/likechen0/four-drive-yabo-sensor | 待导入 | 四驱小车，亚博 8 路灰度传感器 | 后续按四驱需求再导入 |
-| C | MSPM0G3507_Template | https://github.com/QwQuintOO/MSPM0G3507_Template | 待导入 | VSCode GCC + EIDE + OpenOCD + SysConfig 模板 | 后续按工具链整理需要导入 |
+| B | nuedc_control_car_freertos_template | https://github.com/xy1092/nuedc_control_car_freertos_template | submodule | Clean calibrated MSPM0G3507 FreeRTOS control car template | 对比现有 `nuedc_control_freertos` |
+| B | TI-Cup-School-Competitions | https://github.com/bigandstone/TI-Cup-School-Competitions | submodule | TI 电赛校级选拔赛历届赛题代码合集 | 拆出控制题相关工程 |
+| B | Grayscale-Line-Follower-Robot | https://github.com/military-doge/Grayscale-Line-Follower-Robot | submodule | MSPM0G3507 灰度循迹小车 | 对比灰度巡线和底盘控制 |
+| B | Find_box_car | https://github.com/Students800/Find_box_car | source-card | OpenMV + MSPM0G3507 视觉追踪 | 仓库为空，暂不作为 submodule |
+| B | Nuedc2026-MSPM0G3507-Vehicle | https://github.com/chenjingquan-hntb/Nuedc2026-MSPM0G3507-Vehicle | submodule | 2026 NUEDC MSPM0G3507 Vehicle Project | 作为 2026 小车候选 |
+| B | mspm0g3507-tracking-target-car | https://github.com/asdfguai/mspm0g3507-tracking-target-car | submodule | 面向 2025 E 题跟踪目标小车 | 抽查视觉/靶标跟踪逻辑 |
+| B | MSPM0-keil-project | https://github.com/iwiwb/MSPM0-keil-project | 待重试 | 速度闭环、角度闭环、OLED、红外循迹 | 本轮 GitHub 连接重置，后续重试 |
+| C | four-drive-yabo-sensor | https://github.com/likechen0/four-drive-yabo-sensor | submodule | 四驱小车，亚博 8 路灰度传感器 | 后续按四驱需求整理 |
+| C | MSPM0G3507_Template | https://github.com/QwQuintOO/MSPM0G3507_Template | 待重试 | VSCode GCC + EIDE + OpenOCD + SysConfig 模板 | 本轮 GitHub 连接重置，后续重试 |
 
 ## 后续搜索方向
 

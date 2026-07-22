@@ -59,3 +59,23 @@
 - 用户指定的中文仓库显示名为：`MSPM03507各模块例程代码`。
 - GitHub 新仓库页面实测限制仓库名只能包含 ASCII 字母、数字、`.`、`-`、`_`。
 - 因此远程仓库 slug 使用兼容名称：`MSPM03507-module-examples`；中文正式名称继续保留在 README、描述和候选文档中。
+
+## 2026-07-22 第三轮补导入
+
+### 已完成
+
+- 补导入上轮待导入候选：6 个。
+- 当前 `.gitmodules` 有效候选入口：43 个。
+- 新增候选包括：
+  - `xy1092/nuedc_control_car_freertos_template`
+  - `bigandstone/TI-Cup-School-Competitions`
+  - `military-doge/Grayscale-Line-Follower-Robot`
+  - `chenjingquan-hntb/Nuedc2026-MSPM0G3507-Vehicle`
+  - `asdfguai/mspm0g3507-tracking-target-car`
+  - `likechen0/four-drive-yabo-sensor`
+
+### 未完成
+
+- `Students800/Find_box_car` 是空仓库，不能形成有效 submodule；保留为 source-card。
+- `iwiwb/MSPM0-keil-project` 和 `QwQuintOO/MSPM0G3507_Template` 本轮因 GitHub 连接重置未导入，已保留为待重试。
+- `WYJxxoo/MSPM0G3507_syscfg_freeRTOS` 和 `xieyangyingshutong/25xiaoche` 仍保留为待重试。

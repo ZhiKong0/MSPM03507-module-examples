@@ -109,3 +109,21 @@
 [submodule "待整理的文件夹/github/5ee511__MSPM0G3507-Car"]
 	path = 待整理的文件夹/github/5ee511__MSPM0G3507-Car
 	url = https://github.com/5ee511/MSPM0G3507-Car.git
+[submodule "待整理的文件夹/github/xy1092__nuedc_control_car_freertos_template"]
+	path = 待整理的文件夹/github/xy1092__nuedc_control_car_freertos_template
+	url = https://github.com/xy1092/nuedc_control_car_freertos_template.git
+[submodule "待整理的文件夹/github/bigandstone__TI-Cup-School-Competitions"]
+	path = 待整理的文件夹/github/bigandstone__TI-Cup-School-Competitions
+	url = https://github.com/bigandstone/TI-Cup-School-Competitions.git
+[submodule "待整理的文件夹/github/military-doge__Grayscale-Line-Follower-Robot"]
+	path = 待整理的文件夹/github/military-doge__Grayscale-Line-Follower-Robot
+	url = https://github.com/military-doge/Grayscale-Line-Follower-Robot.git
+[submodule "待整理的文件夹/github/chenjingquan-hntb__Nuedc2026-MSPM0G3507-Vehicle"]
+	path = 待整理的文件夹/github/chenjingquan-hntb__Nuedc2026-MSPM0G3507-Vehicle
+	url = https://github.com/chenjingquan-hntb/Nuedc2026-MSPM0G3507-Vehicle.git
+[submodule "待整理的文件夹/github/asdfguai__mspm0g3507-tracking-target-car"]
+	path = 待整理的文件夹/github/asdfguai__mspm0g3507-tracking-target-car
+	url = https://github.com/asdfguai/mspm0g3507-tracking-target-car.git
+[submodule "待整理的文件夹/github/likechen0__four-drive-yabo-sensor"]
+	path = 待整理的文件夹/github/likechen0__four-drive-yabo-sensor
+	url = https://github.com/likechen0/four-drive-yabo-sensor.git
