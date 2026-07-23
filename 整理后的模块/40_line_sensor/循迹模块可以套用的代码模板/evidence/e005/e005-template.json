@@ -1,0 +1,20 @@
+{
+  "template_only": true,
+  "purpose": "Replace with line_trace_swd_tune_plan.py dry-run or real --run JSON output.",
+  "required_cases": [
+    "hot_kp_step",
+    "hot_kd_step",
+    "hot_base_speed_step",
+    "hot_max_correction_step",
+    "reject_bad_kp",
+    "rollback_cold_param"
+  ],
+  "hardware_gate": "Before real --run, confirm target UID, raw DAP/status, fresh firmware, motor safe state, and RUNNING_TUNE_SAFE route.",
+  "expected_real_evidence": [
+    "SWD write plan uses g_line_tuning_block from fresh ELF",
+    "safe kp/kd/base_speed/max_correction changes read back as APPLIED",
+    "bad kp is rejected with BAD_CONTROL_PARAM",
+    "cold parameter change while RUNNING_TUNE_SAFE is rolled back with DANGEROUS_JUMP",
+    "telemetry or bench snapshot records safety_state and error_code"
+  ]
+}

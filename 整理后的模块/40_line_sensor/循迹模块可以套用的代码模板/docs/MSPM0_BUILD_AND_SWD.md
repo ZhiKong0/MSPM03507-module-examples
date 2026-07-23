@@ -2,14 +2,16 @@
 
 ## 目标
 
-这一页用于补齐巡线模块的 E-002 证据门：先证明模板能按 Cortex-M0+ / MSPM0G3507 目标构建，再给出后续通过 SWD 读取 RAM 调参块和 telemetry 的方法。
+本页用于补齐巡线模块的 E-002/E-002H 证据门：先证明模板能按
+Cortex-M0+ / MSPM0G3507 目标构建，再给出后续通过 SWD 读取 RAM 调参块、
+telemetry 和 bench snapshot 的方法。
 
 ## GNU 构建
 
 在模板目录执行：
 
 ```powershell
-Push-Location -LiteralPath 'E:\Learning\嵌入式\电赛备赛\MSPM03507各模块例程代码\整理后的模块\40_line_sensor\循迹模块可以套用的代码模板'
+Push-Location -LiteralPath '整理后的模块/40_line_sensor/循迹模块可以套用的代码模板'
 mingw32-make -f Makefile.mspm0g3507 clean all
 Pop-Location
 ```
@@ -30,7 +32,7 @@ smoke ELF 使用 MSPM0G3507 常见地址：
 
 ## 可读回符号
 
-构建完成后必须能在 ELF 里看到这些符号：
+构建完成后必须能在 fresh ELF 里看到：
 
 - `g_line_tuning_block`
 - `g_line_telemetry`
@@ -38,22 +40,21 @@ smoke ELF 使用 MSPM0G3507 常见地址：
 - `g_line_smoke_counter`
 - `g_line_smoke_cookie`
 
-这些符号是后续 SWD 读回的低风险观测点。`g_line_tuning_block` 和 `g_line_telemetry` 来自真实接入循环；`g_line_bench_snapshot` 是 4 字节对齐的台架采证快照；`g_line_smoke_counter` 和 `g_line_smoke_cookie` 用于证明 smoke 固件在跑。
+这些符号是后续 SWD 读回的低风险观测点。每次真实 SWD 操作前都必须从
+fresh ELF 解析地址，不要手抄旧地址。
 
 ## SWD 读回 dry-run
 
 默认不访问硬件，只解析 ELF 并生成 pyOCD 读命令：
 
 ```powershell
-Push-Location -LiteralPath 'E:\Learning\嵌入式\电赛备赛\MSPM03507各模块例程代码\整理后的模块\40_line_sensor\循迹模块可以套用的代码模板'
+Push-Location -LiteralPath '整理后的模块/40_line_sensor/循迹模块可以套用的代码模板'
 python tools\line_trace_swd_readback.py `
   --elf build\mspm0g3507-line-trace-smoke\line_trace_smoke.elf `
   --target mspm0g3507 `
   --probe-uid 031305620164
 Pop-Location
 ```
-
-示例 dry-run 会输出 JSON，里面包含每个符号地址和只读 `pyocd commander` 命令。
 
 台架传感器验证使用专用采集工具：
 
@@ -65,16 +66,28 @@ python tools\line_trace_bench_capture.py `
   --case dry_run_center
 ```
 
-它默认解析 `g_line_bench_snapshot` 并生成 `read32 <addr> 22` 命令，不访问硬件。
+热调参计划使用：
+
+```powershell
+python tools\line_trace_swd_tune_plan.py `
+  --elf build\mspm0g3507-line-trace-smoke\line_trace_smoke.elf `
+  --target mspm0g3507 `
+  --probe-uid 031305620164 `
+  --case hot_kp_step `
+  --seq 1 `
+  --kp 42
+```
+
+以上命令默认都是 dry-run，不 attach、不 flash、不 reset、不写 RAM。
 
 ## 真实 SWD 读回
 
-真实读回前必须先满足硬件门：
+真实读回前必须满足硬件门：
 
-- 只连接一个要操作的 CMSIS-DAP，或明确指定 `--probe-uid`。
-- 不要同时运行其它 pyOCD、OpenOCD、SWD 面板或调参工具。
-- 先按项目的 MSPM0 pyOCD 流程确认 raw DAP/status 正常。
-- 不通过 SWD 直接写 GPIO、I2C、SPI、UART 或电机外设寄存器。
+- 明确目标 UID，默认 `031305620164`。
+- 停掉其它 pyOCD、OpenOCD、SWD 面板或调参工具。
+- 按 MSPM0 pyOCD 流程确认 raw DAP/status 正常。
+- 不通过 SWD 直接写 GPIO、PWM、UART、I2C、SPI 或电机外设寄存器。
 
 读回命令：
 
@@ -87,8 +100,10 @@ python tools\line_trace_swd_readback.py `
   --run
 ```
 
-`--run` 只生成 pyOCD `status/read32/exit`，不执行写内存、擦除、烧录或复位。
+`--run` 只执行 pyOCD `status/read32/exit`，不写内存、不擦除、不烧录、不复位。
 
-## 后续进入 E-003
+## 后续证据门
 
-E-002 只证明“能构建、能解析符号、能准备 SWD 读回”。进入 E-003 时，还需要把真实 GPIO/模拟阈值/I2C 传感器接上台架，记录 `raw_bits/active_bits/error/confidence` 的通道映射证据。
+- E-003：接真实 GPIO/模拟阈值/I2C 传感器，记录 `raw_bits/active_bits/error/confidence`。
+- E-004：低速连续 3 圈或 3 分钟，验证不丢线、不剧烈摆动、能搜索恢复。
+- E-005：进入 `RUNNING_TUNE_SAFE` 后，通过 RAM 参数块热调 `kp/kd/base_speed/max_correction`，并验证越界拒绝与危险突变回滚。

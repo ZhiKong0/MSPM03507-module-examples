@@ -8,7 +8,7 @@
 - Linked Requirement ID: G-008, G-009, G-012
 - Linked Goal/subgoal: PC/mock algorithm verification for line trace module v0.1
 - Result: pass, output `line_trace_mock_tests: PASS`
-- Timestamp/context: 2026-07-23, Codex goal loop implementation turn, Windows MinGW gcc at `F:\mingw64\bin\gcc.exe`
+- Timestamp/context: 2026-07-23, Codex goal loop implementation turn
 - Status: verified
 
 ## E-001A
@@ -51,8 +51,8 @@
 - Path / command: `mingw32-make -f Makefile.mspm0g3507 clean all`
 - Linked Requirement ID: G-008, G-012, G-014
 - Linked Goal/subgoal: MSPM0G3507 GNU target build gate for line trace smoke ELF
-- Result: pass; `arm-none-eabi-gcc` built `build/mspm0g3507-line-trace-smoke/line_trace_smoke.elf/.hex/.bin`; `arm-none-eabi-size` reported `text=3788 data=68 bss=280 dec=4136`; `arm-none-eabi-nm` found `g_line_tuning_block=0x202000b8`, `g_line_telemetry=0x2020009c`, `g_line_bench_snapshot=0x20200044`, `g_line_smoke_counter=0x20200158`, `g_line_smoke_cookie=0x20200040`
-- Timestamp/context: 2026-07-23, Codex goal loop G-014 implementation turn, Windows `mingw32-make` + Arm GNU Toolchain 12.2
+- Result: pass; built `line_trace_smoke.elf/.hex/.bin`; previous size `text=3788 data=68 bss=280 dec=4136`; required symbols present
+- Timestamp/context: 2026-07-23, Codex goal loop G-014 implementation turn
 - Status: verified for target build and ELF symbol availability
 
 ## E-002A
@@ -62,7 +62,7 @@
 - Path / command: `python tools\line_trace_swd_readback.py --elf build\mspm0g3507-line-trace-smoke\line_trace_smoke.elf --target mspm0g3507 --probe-uid 031305620164`
 - Linked Requirement ID: G-006, G-010, G-014
 - Linked Goal/subgoal: SWD readback method for RAM tuning block and telemetry frame
-- Result: pass; dry-run resolved ELF symbols and generated a pyOCD commander read-only command for `g_line_tuning_block`, `g_line_telemetry`, `g_line_smoke_counter`, and `g_line_smoke_cookie`
+- Result: pass; dry-run resolved ELF symbols and generated pyOCD read-only commands
 - Timestamp/context: 2026-07-23, Codex goal loop G-014 implementation turn
 - Status: verified for symbol resolution and readback command generation; real hardware readback remains pending
 
@@ -73,7 +73,7 @@
 - Path / command: `python tools\line_trace_bench_capture.py --elf build\mspm0g3507-line-trace-smoke\line_trace_smoke.elf --target mspm0g3507 --probe-uid 031305620164 --case dry_run_center`
 - Linked Requirement ID: G-003, G-004, G-009, G-015
 - Linked Goal/subgoal: E-003 bench sensor evidence collection method
-- Result: pass; dry-run resolved `g_line_bench_snapshot=0x20200044`, `word_count=22`, and generated read-only pyOCD command `status; read32 0x20200044 22; exit`
+- Result: pass; dry-run resolved `g_line_bench_snapshot` and generated read-only `read32 <addr> 22` command
 - Timestamp/context: 2026-07-23, Codex goal loop G-015 implementation turn
 - Status: verified for bench capture tooling only; real sensor samples remain pending
 
@@ -84,7 +84,7 @@
 - Path / command: `python tools\line_trace_bench_validate.py evidence\e003\e003-template.json %TEMP%\e003-validator-sample.json --strict`
 - Linked Requirement ID: G-003, G-004, G-009, G-016
 - Linked Goal/subgoal: E-003 bench evidence template and validator readiness
-- Result: pass; validator skipped `template_only` JSON, accepted a Windows UTF-8-BOM synthetic capture, and reported `status=pass`, `sample_count=9`, `case_count=9`
+- Result: pass; validator skipped `template_only` JSON, accepted synthetic capture, and reported `status=pass`
 - Timestamp/context: 2026-07-23, Codex goal loop G-016 implementation turn
 - Status: verified for validator/tooling only; synthetic capture is not hardware evidence
 
@@ -95,12 +95,35 @@
 - Path / command: `Get-Command pyocd`; TI DFP `Get-FileHash`; `pyocd list --probes`
 - Linked Requirement ID: G-008, G-016
 - Linked Goal/subgoal: non-invasive readiness check before real E-003 bench execution
-- Result: pass; `pyocd.exe` found; TI DFP pack hash matched `071bd317fc0f152ded6b2ae594d79c6fc5eb9952370526b4c14ef5b3b9807860`; probe enumeration saw Horco CMSIS-DAP UIDs `031305620164` and `031305622180`
+- Result: pass; `pyocd.exe` found; TI DFP pack hash matched expected value; probe enumeration saw Horco CMSIS-DAP UIDs `031305620164` and `031305622180`
 - Timestamp/context: 2026-07-23, Codex goal loop G-016 implementation turn
 - Status: verified for non-invasive readiness only; no target attach, flash, reset, or real sensor sampling was performed
 
+## E-005A
+
+- Evidence ID: E-005A
+- Source type: command/tooling-check
+- Path / command: `python tools\line_trace_swd_tune_plan.py ...` for `hot_kp_step`, `hot_kd_step`, `hot_base_speed_step`, `hot_max_correction_step`, `reject_bad_kp`, `rollback_cold_param`; then `python tools\line_trace_swd_tune_validate.py %TEMP%\e005-*.json --strict`
+- Linked Requirement ID: G-006, G-007, G-010, G-016
+- Linked Goal/subgoal: E-005 SWD hot tuning dry-run and safety validator readiness
+- Result: pass; six dry-run reports resolved fresh ELF symbols, generated firmware-owned RAM tuning-block write/readback commands, accepted safe RUNNING_TUNE_SAFE steps, and rejected/rolled back unsafe cases with no hardware access
+- Timestamp/context: 2026-07-23, Codex goal continuation after G-017 remained unconfirmed
+- Status: verified for tooling only; real SWD RAM write and car-test evidence remain pending
+
+## E-006
+
+- Evidence ID: E-006
+- Source type: command/git
+- Path / command: `git push origin main`
+- Linked Requirement ID: repository delivery
+- Linked Goal/subgoal: GitHub synchronization for module examples repository
+- Result: pass; previous remote SHA `289f503f54ba0a7d089f310a9cf75731f65e8ade`
+- Timestamp/context: 2026-07-23, Codex goal loop
+- Status: verified for previous checkpoint; current turn push pending
+
 ## Pending Hardware Evidence
 
+- E-002H: real hardware SWD readback remains pending.
 - E-003: bench sensor `raw_bits/active_bits` mapping remains pending.
 - E-004: low-speed 3 laps or 3 minutes car test remains pending.
 - E-005: running SWD hot tuning apply/readback/limits/rollback car test remains pending.
