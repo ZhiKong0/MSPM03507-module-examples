@@ -10,6 +10,7 @@
 | E-004 | Low-speed car | G-008, G-009 | 低速连续 3 圈或 3 分钟，无不可恢复丢线，无明显剧烈摆动 | pending hardware |
 | E-005A | Hot tuning dry-run | G-006, G-007, G-010, G-016 | 生成 SWD RAM 参数块写入计划，PC 侧验证安全小步调参、越界拒绝和冷参数回滚案例 | verified for tooling only; real RAM write pending |
 | E-005 | Hot tuning car | G-006, G-007, G-010 | 运动中成功修改 `kp/kd/base_speed/max_correction` 并读回 applied；危险参数被拒绝/回滚 | pending hardware |
+| E-007 | Profile freeze | G-009, G-011 | applied 调参计划能冻结为带 CRC 的可复用 profile；dry-run 不可冒充 last-known-good | verified for tooling; real last-known-good still requires hardware |
 
 ## PC/mock Cases
 
@@ -32,3 +33,4 @@
 - 低速车测时先固定保守参数，再逐步提高 `base_speed`。
 - SWD 热调参必须记录 `seq/status/error_code/telemetry`，避免只靠肉眼判断。
 - 未确认 G-017 硬件安全门时，只允许执行 E-005A dry-run/validator，不执行真实 SWD RAM 写入。
+- dry-run profile 只能标记为 `dry-run-candidate`；写 Flash 的 `last-known-good` 必须等真实 E-003/E-004/E-005 证据齐全。

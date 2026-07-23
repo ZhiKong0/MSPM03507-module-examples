@@ -69,4 +69,5 @@
 
 - v0.1：确认需求边界 G-001..G-012。
 - v0.1 implementation slice：新增统一采样帧、RAM 调参块、telemetry、PC/mock 测试和 MSPM0 示例。
+- v0.1 persistence slice：新增热调参 profile freeze、调参 SOP 和未来 Flash A/B 持久化策略；dry-run profile 不等同于 last-known-good。
 - deferred：Flash A/B commit、GUI 调参、摄像头、完整整车应用。

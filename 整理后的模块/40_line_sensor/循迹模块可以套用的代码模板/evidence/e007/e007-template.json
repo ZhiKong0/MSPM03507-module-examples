@@ -1,0 +1,15 @@
+{
+  "template_only": true,
+  "purpose": "Replace with line_trace_profile_freeze.py output after a validated applied E-005 tuning plan.",
+  "allowed_profile_classes": [
+    "dry-run-candidate",
+    "bench-candidate",
+    "last-known-good"
+  ],
+  "last_known_good_gate": [
+    "E-003 real bench mapping pass",
+    "E-004 low-speed 3 laps or 3 minutes pass",
+    "E-005 real hot tuning readback pass",
+    "source plan has hardware_evidence=true"
+  ]
+}

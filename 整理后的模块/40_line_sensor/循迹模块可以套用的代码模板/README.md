@@ -25,12 +25,16 @@
 | `tools/line_trace_bench_validate.py` | 校验 E-003 采样是否满足通道映射和左右误差规则 |
 | `tools/line_trace_swd_tune_plan.py` | 生成 E-005 SWD 热调参 RAM 参数块写入计划，默认 dry-run |
 | `tools/line_trace_swd_tune_validate.py` | 校验 E-005 热调参计划/证据是否覆盖 applied/rejected/rollback |
+| `tools/line_trace_profile_freeze.py` | 把已验证的 applied 调参计划冻结成可复用 JSON/C profile |
 | `evidence/e003/` | 真实台架采样证据的默认存放位置和模板 |
 | `evidence/e005/` | 热调参 dry-run/真实车测证据的默认存放位置和模板 |
+| `evidence/e007/` | 调参 profile freeze 和未来持久化证据模板 |
 | `tests/test_line_trace_mock.c` | PC/mock 算法与调参验证 |
 | `docs/MSPM0_BUILD_AND_SWD.md` | MSPM0 构建、符号读回和后续硬件验证方法 |
 | `docs/BENCH_SENSOR_VERIFICATION.md` | 台架传感器映射验证流程 |
 | `docs/HOT_TUNING_VERIFICATION.md` | SWD 热调参 dry-run、真实写入和回滚验收流程 |
+| `docs/PERSISTENCE_STRATEGY.md` | profile 状态、回滚和未来 Flash A/B commit 策略 |
+| `docs/TUNING_SOP.md` | 台架、低速、热调、冻结 profile 的调参 SOP |
 | `docs/LOOP_SPEC.md` | 已确认的 goal/loop 规格 |
 | `docs/VERIFICATION_MATRIX.md` | 五层证据门和验收矩阵 |
 | `SOURCE_ANALYSIS.md` | 候选巡线例程分析和取舍 |
@@ -80,6 +84,19 @@ python tools\line_trace_swd_tune_plan.py `
 ```
 
 加 `--run --allow-ram-write` 才会真正通过 SWD 写 `g_line_tuning_block`，并且真实写入前必须先完成硬件安全确认、raw DAP/status gate 和电机安全状态确认。
+
+调参计划验证通过后，可以先冻结成候选 profile 便于复用审查：
+
+```powershell
+python tools\line_trace_profile_freeze.py `
+  --plan evidence\e005\e005-hot-kp-step.json `
+  --profile-class dry-run-candidate `
+  --allow-dry-run-source `
+  --out-json evidence\e007\profile-dryrun-kp42.json `
+  --out-header evidence\e007\line_trace_profile_dryrun_kp42.h
+```
+
+`dry-run-candidate` 不是可写 Flash 的参数；只有真实 E-003/E-004/E-005 证据都通过后，才能升级为 `last-known-good`。
 
 ## 推荐权重
 

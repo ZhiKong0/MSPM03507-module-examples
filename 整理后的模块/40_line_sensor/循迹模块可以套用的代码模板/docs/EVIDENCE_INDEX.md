@@ -121,6 +121,17 @@
 - Timestamp/context: 2026-07-23, Codex goal loop
 - Status: verified for previous checkpoint; current turn push pending
 
+## E-007
+
+- Evidence ID: E-007
+- Source type: command/tooling-check
+- Path / command: `python tools\line_trace_profile_freeze.py --plan %TEMP%\line_trace_e005_dryrun\e005-hot-kp-step.json --profile-class dry-run-candidate --allow-dry-run-source --out-json %TEMP%\line_trace_e007_freeze\profile-dryrun-kp42.json --out-header %TEMP%\line_trace_e007_freeze\line_trace_profile_dryrun_kp42.h`
+- Linked Requirement ID: G-009, G-011
+- Linked Goal/subgoal: freeze validated applied tuning plan into reusable profile without pretending dry-run is last-known-good
+- Result: pass; generated a `dry-run-candidate` profile with CRC `0x811bb02a`, compiled a C translation unit including the generated header, and rejected an attempted `last-known-good` freeze from dry-run evidence with `last-known-good requires real hardware_evidence=true`
+- Timestamp/context: 2026-07-23, Codex goal continuation without G-017 hardware confirmation
+- Status: verified for tooling; real last-known-good profile still requires E-003/E-004/E-005 hardware evidence
+
 ## Pending Hardware Evidence
 
 - E-002H: real hardware SWD readback remains pending.
