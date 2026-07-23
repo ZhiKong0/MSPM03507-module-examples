@@ -1,0 +1,29 @@
+{
+  "template_only": true,
+  "purpose": "Replace this template with real line_trace_bench_capture.py --run output when hardware is ready.",
+  "required_cases": [
+    "white_idle",
+    "ch0_black",
+    "ch1_black",
+    "ch2_black",
+    "ch3_black",
+    "ch4_black",
+    "ch5_black",
+    "ch6_black",
+    "ch7_black",
+    "left_to_right",
+    "no_line_after_seen"
+  ],
+  "capture_command_example": "python tools\\line_trace_bench_capture.py --elf build\\mspm0g3507-line-trace-smoke\\line_trace_smoke.elf --target mspm0g3507 --probe-uid 031305620164 --case ch0_black --samples 3 --out-json evidence\\e003\\e003-ch0-black.json --out-csv evidence\\e003\\e003-ch0-black.csv --run",
+  "expected_fields": [
+    "case",
+    "sample_index",
+    "raw_bits",
+    "active_bits",
+    "active_count",
+    "error",
+    "confidence",
+    "sensor_status",
+    "error_code"
+  ]
+}

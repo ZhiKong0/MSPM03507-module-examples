@@ -77,6 +77,28 @@
 - Timestamp/context: 2026-07-23, Codex goal loop G-015 implementation turn
 - Status: verified for bench capture tooling only; real sensor samples remain pending
 
+## E-003B
+
+- Evidence ID: E-003B
+- Source type: command/tooling-check
+- Path / command: `python tools\line_trace_bench_validate.py evidence\e003\e003-template.json %TEMP%\e003-validator-sample.json --strict`
+- Linked Requirement ID: G-003, G-004, G-009, G-016
+- Linked Goal/subgoal: E-003 bench evidence template and validator readiness
+- Result: pass; validator skipped `template_only` JSON, accepted a Windows UTF-8-BOM synthetic capture, and reported `status=pass`, `sample_count=9`, `case_count=9`
+- Timestamp/context: 2026-07-23, Codex goal loop G-016 implementation turn
+- Status: verified for validator/tooling only; synthetic capture is not hardware evidence
+
+## E-003C
+
+- Evidence ID: E-003C
+- Source type: command/probe-readiness
+- Path / command: `Get-Command pyocd`; TI DFP `Get-FileHash`; `pyocd list --probes`
+- Linked Requirement ID: G-008, G-016
+- Linked Goal/subgoal: non-invasive readiness check before real E-003 bench execution
+- Result: pass; `pyocd.exe` found; TI DFP pack hash matched `071bd317fc0f152ded6b2ae594d79c6fc5eb9952370526b4c14ef5b3b9807860`; probe enumeration saw Horco CMSIS-DAP UIDs `031305620164` and `031305622180`
+- Timestamp/context: 2026-07-23, Codex goal loop G-016 implementation turn
+- Status: verified for non-invasive readiness only; no target attach, flash, reset, or real sensor sampling was performed
+
 ## Pending Hardware Evidence
 
 - E-003: bench sensor `raw_bits/active_bits` mapping remains pending.

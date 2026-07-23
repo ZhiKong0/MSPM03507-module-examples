@@ -79,6 +79,26 @@ python tools\line_trace_bench_capture.py `
 
 每换一个遮挡位置，就改 `--case` 和输出文件名。
 
+## 证据校验
+
+采完 `white_idle` 和 `ch0_black` 到 `ch7_black` 后，运行：
+
+```powershell
+python tools\line_trace_bench_validate.py evidence\e003\e003-*.json --strict
+```
+
+校验器会检查：
+
+- 必要 case 是否齐全。
+- `chN_black` 的 `active_bits` 是否包含 bit N。
+- 左侧通道是否为负误差，右侧通道是否为正误差。
+- `white_idle` 的 `active_count` 是否不超过设定阈值。
+- `sensor_status` 是否为 0。
+
+如果你的巡线模块物理通道不是 0 左 7 右，先修正 `channel_order`，再重新采样；不要在算法源文件里硬改左右符号。
+
+默认证据目录是 `evidence/e003/`。其中 `e003-template.json` 只说明字段和命令格式，校验器会跳过 `template_only=true` 的模板文件。
+
 ## 判定
 
 E-003 通过时，证据必须能回答：

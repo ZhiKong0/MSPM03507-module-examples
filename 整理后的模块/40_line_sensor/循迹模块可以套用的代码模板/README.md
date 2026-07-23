@@ -22,6 +22,8 @@
 | `Makefile.mspm0g3507` | 使用 arm-none-eabi GNU 构建 smoke ELF/HEX/BIN |
 | `tools/line_trace_swd_readback.py` | 从 ELF 自动解析 SWD 读回符号并生成 pyOCD 读命令 |
 | `tools/line_trace_bench_capture.py` | 采集 `g_line_bench_snapshot` 并生成 E-003 JSON/CSV 证据 |
+| `tools/line_trace_bench_validate.py` | 校验 E-003 采样是否满足通道映射和左右误差规则 |
+| `evidence/e003/` | 真实台架采样证据的默认存放位置和模板 |
 | `tests/test_line_trace_mock.c` | PC/mock 算法与调参验证 |
 | `docs/MSPM0_BUILD_AND_SWD.md` | MSPM0 构建、符号读回和后续硬件验证方法 |
 | `docs/BENCH_SENSOR_VERIFICATION.md` | 台架传感器映射验证流程 |
