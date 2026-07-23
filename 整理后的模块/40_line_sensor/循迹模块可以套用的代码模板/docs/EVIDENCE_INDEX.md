@@ -132,6 +132,17 @@
 - Timestamp/context: 2026-07-23, Codex goal continuation without G-017 hardware confirmation
 - Status: verified for tooling; real last-known-good profile still requires E-003/E-004/E-005 hardware evidence
 
+## E-007B
+
+- Evidence ID: E-007B
+- Source type: command/tooling-check
+- Path / command: `python tools\line_trace_profile_validate.py %TEMP%\line_trace_e007_freeze\profile-dryrun-kp42.json`; `Copy-Item $header $generated`; `gcc -std=c99 -Wall -Wextra -Werror -I include -I $e007Include -c examples\profile_usage_example.c -o %TEMP%\line_trace_e007_freeze\profile_usage_example.o`; tampered profile validation expected failure
+- Linked Requirement ID: G-009, G-011
+- Linked Goal/subgoal: validate reusable profile integrity and compile the C profile usage example
+- Result: pass; valid `dry-run-candidate` profile CRC `0x811bb02a` passed, generated profile header compiled through `profile_usage_example.c`, and a tampered `kp` profile failed with CRC mismatch `expected 0x8903dd17`
+- Timestamp/context: 2026-07-23, Codex goal continuation without G-017 hardware confirmation
+- Status: verified for tooling; real `last-known-good` profile still requires E-003/E-004/E-005 hardware evidence
+
 ## Pending Hardware Evidence
 
 - E-002H: real hardware SWD readback remains pending.

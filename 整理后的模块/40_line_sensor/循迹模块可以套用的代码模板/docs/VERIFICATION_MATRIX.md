@@ -11,6 +11,7 @@
 | E-005A | Hot tuning dry-run | G-006, G-007, G-010, G-016 | 生成 SWD RAM 参数块写入计划，PC 侧验证安全小步调参、越界拒绝和冷参数回滚案例 | verified for tooling only; real RAM write pending |
 | E-005 | Hot tuning car | G-006, G-007, G-010 | 运动中成功修改 `kp/kd/base_speed/max_correction` 并读回 applied；危险参数被拒绝/回滚 | pending hardware |
 | E-007 | Profile freeze | G-009, G-011 | applied 调参计划能冻结为带 CRC 的可复用 profile；dry-run 不可冒充 last-known-good | verified for tooling; real last-known-good still requires hardware |
+| E-007B | Profile validate/use | G-009, G-011 | profile CRC/范围/证据边界可校验，生成的 C profile 可接入初始化示例 | verified for tooling; real last-known-good still requires hardware |
 
 ## PC/mock Cases
 
@@ -34,3 +35,4 @@
 - SWD 热调参必须记录 `seq/status/error_code/telemetry`，避免只靠肉眼判断。
 - 未确认 G-017 硬件安全门时，只允许执行 E-005A dry-run/validator，不执行真实 SWD RAM 写入。
 - dry-run profile 只能标记为 `dry-run-candidate`；写 Flash 的 `last-known-good` 必须等真实 E-003/E-004/E-005 证据齐全。
+- 复用 profile 前必须先通过 `line_trace_profile_validate.py`；工程接入参考 `profile_usage_example.c`。

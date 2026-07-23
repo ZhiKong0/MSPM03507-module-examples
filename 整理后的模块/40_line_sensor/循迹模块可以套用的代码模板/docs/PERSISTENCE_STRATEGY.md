@@ -36,6 +36,15 @@ python tools\line_trace_profile_freeze.py `
 真实 `last-known-good` 必须来自 `hardware_evidence=true` 的真实 E-005 计划；
 工具会拒绝把 dry-run 计划直接冻结为 LKG。
 
+冻结后必须校验 profile：
+
+```powershell
+python tools\line_trace_profile_validate.py evidence\e007\profile-dryrun-kp42.json
+```
+
+该校验会检查 CRC、参数范围、`profile_class` 和硬件证据边界。C 工程接入
+可参考 `examples/profile_usage_example.c`。
+
 ## 未来 Flash A/B commit 边界
 
 首轮模板不写 Flash，但未来 commit 应遵守：
@@ -51,4 +60,3 @@ python tools\line_trace_profile_freeze.py `
 - RAM 热调失败：MCU 保持 runtime 参数不变，并写回 `REJECTED/ROLLED_BACK`。
 - 车测失败：profile 保持 candidate，不升级为 `last-known-good`。
 - Flash 加载失败：使用编译默认值，并要求重新台架/车测。
-

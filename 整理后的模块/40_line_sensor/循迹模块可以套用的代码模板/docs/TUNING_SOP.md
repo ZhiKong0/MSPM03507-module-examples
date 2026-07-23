@@ -61,10 +61,17 @@ mingw32-make -f Makefile.mspm0g3507 clean all
 只有 applied 且验证通过的计划才能 freeze。dry-run 只能生成
 `dry-run-candidate`；真实车测通过后才能升级 `last-known-good`。
 
+冻结后先 validate，再接入工程：
+
+```powershell
+python tools\line_trace_profile_validate.py evidence\e007\profile-dryrun-kp42.json
+```
+
+工程接入示例见 `examples/profile_usage_example.c`。
+
 ## 6. 不做的事
 
 - 不用 SWD 直接写 PWM/GPIO/I2C/SPI/UART 外设寄存器。
 - 不把一次偶然能跑的参数直接写 Flash。
 - 不同时调传感器阈值和控制参数。
 - 不在普通 `RUNNING` 状态热写控制参数。
-

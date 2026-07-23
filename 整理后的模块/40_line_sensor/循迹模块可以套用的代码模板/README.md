@@ -19,6 +19,7 @@
 | `examples/mspm0g3507_adapter_example.c` | MSPM0G3507 GPIO/统一采样帧适配示例 |
 | `examples/integration_loop_example.c` | 20 ms 控制循环、SWD 调参和 telemetry 接入示例 |
 | `examples/mspm0g3507_smoke_main.c` | 不依赖 SysConfig 的 MSPM0G3507 smoke ELF 入口 |
+| `examples/profile_usage_example.c` | 把冻结 profile 接入算法和控制器初始化的 C 示例 |
 | `Makefile.mspm0g3507` | 使用 arm-none-eabi GNU 构建 smoke ELF/HEX/BIN |
 | `tools/line_trace_swd_readback.py` | 从 ELF 自动解析 SWD 读回符号并生成 pyOCD 读命令 |
 | `tools/line_trace_bench_capture.py` | 采集 `g_line_bench_snapshot` 并生成 E-003 JSON/CSV 证据 |
@@ -26,6 +27,7 @@
 | `tools/line_trace_swd_tune_plan.py` | 生成 E-005 SWD 热调参 RAM 参数块写入计划，默认 dry-run |
 | `tools/line_trace_swd_tune_validate.py` | 校验 E-005 热调参计划/证据是否覆盖 applied/rejected/rollback |
 | `tools/line_trace_profile_freeze.py` | 把已验证的 applied 调参计划冻结成可复用 JSON/C profile |
+| `tools/line_trace_profile_validate.py` | 校验 profile CRC、参数范围和 last-known-good 硬件证据边界 |
 | `evidence/e003/` | 真实台架采样证据的默认存放位置和模板 |
 | `evidence/e005/` | 热调参 dry-run/真实车测证据的默认存放位置和模板 |
 | `evidence/e007/` | 调参 profile freeze 和未来持久化证据模板 |
@@ -97,6 +99,21 @@ python tools\line_trace_profile_freeze.py `
 ```
 
 `dry-run-candidate` 不是可写 Flash 的参数；只有真实 E-003/E-004/E-005 证据都通过后，才能升级为 `last-known-good`。
+
+复用 profile 前先校验：
+
+```powershell
+python tools\line_trace_profile_validate.py evidence\e007\profile-dryrun-kp42.json
+```
+
+在 C 工程中引用生成的 profile 头文件时，可参考 `examples/profile_usage_example.c`。
+PowerShell 下验证 include 路径时要把 `-I` 和目录分成两个参数：
+
+```powershell
+$profileDir = "$env:TEMP\line_trace_e007_freeze"
+Copy-Item "$profileDir\line_trace_profile_dryrun_kp42.h" "$profileDir\line_trace_profile_generated.h"
+gcc -std=c99 -Wall -Wextra -Werror -I include -I $profileDir -c examples\profile_usage_example.c -o "$profileDir\profile_usage_example.o"
+```
 
 ## 推荐权重
 
