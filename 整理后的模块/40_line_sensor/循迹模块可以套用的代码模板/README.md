@@ -1,43 +1,41 @@
 # 循迹模块可以套用的代码模板
 
-状态：`template-v0.1`
+状态：`template-v0.2-loop-skeleton`
 
-这个文件夹给 MSPM0G3507 小车项目提供一个可套用的循迹模板。它不是直接复制任何上游工程源码，而是把本仓库候选池里已经出现的好结构重新整理成一个可移植版本：
+这个目录给 MSPM0G3507 小车项目提供一个可复用的巡线模块模板。它不是直接复制第三方工程代码，而是把候选例程里的可取结构重新整理成独立实现：
 
-- 硬件层只负责读 GPIO 高低电平。
-- 传感器层输出 `raw_bits / active_bits / position / error / confidence / lost_dir`。
-- 控制层把 `line error` 转换成左右轮目标速度。
-- 丢线时按最后一次有效偏差方向搜索，不把偏差清零。
+- 算法层只处理数字化后的 `raw_bits / active_bits / position / error / confidence / lost_dir`。
+- 适配层负责把 GPIO、模拟阈值/比较器或 I2C 巡线传感器转换成统一采样帧。
+- 控制层把 `line error` 转换成左右轮目标速度，不直接绑定具体 PWM 或电机驱动。
+- 调参层提供 RAM 参数块、显式 `apply_flag`、状态回读和范围校验，适合通过 SWD/pyOCD 做热调参。
+- 证据层输出 telemetry frame，用于 PC/mock、台架、低速车测和热调参闭环。
 
 ## 目录
 
 | 文件 | 作用 |
 |---|---|
-| `include/line_trace_template.h` | 对外 API 和数据结构 |
-| `src/line_trace_template.c` | 可移植循迹算法实现 |
-| `examples/mspm0g3507_adapter_example.c` | MSPM0G3507 GPIO 适配示例 |
-| `examples/integration_loop_example.c` | 控制循环接入示例 |
-| `SOURCE_ANALYSIS.md` | 现成循迹代码分析和取舍 |
-| `CMakeLists.txt` | 独立 object library 构建入口 |
+| `include/line_trace_template.h` | 对外 API、统一采样帧、调参块、telemetry 结构 |
+| `src/line_trace_template.c` | 可移植巡线算法和调参 apply 实现 |
+| `examples/mspm0g3507_adapter_example.c` | MSPM0G3507 GPIO/统一采样帧适配示例 |
+| `examples/integration_loop_example.c` | 20 ms 控制循环、SWD 调参和 telemetry 接入示例 |
+| `tests/test_line_trace_mock.c` | PC/mock 算法与调参验证 |
+| `docs/LOOP_SPEC.md` | 已确认的 goal/loop 规格 |
+| `docs/VERIFICATION_MATRIX.md` | 五层证据门和验收矩阵 |
+| `SOURCE_ANALYSIS.md` | 候选巡线例程分析和取舍 |
+| `CMakeLists.txt` | 独立 object library 和可选 host 测试入口 |
 
 ## 接入步骤
 
-1. 把 `include/` 和 `src/` 加入你的工程。
-2. 在自己的板级文件里实现一个读通道函数：
+1. 把 `include/` 和 `src/` 加入工程。
+2. 在板级文件里读取传感器，并填充 `line_trace_sample_frame_t`。
+3. 调用 `LineTrace_UpdateFromFrame()` 得到 `line_trace_result_t`。
+4. 调用 `LineTrace_ControllerStep()` 得到左右轮目标速度。
+5. 在控制循环安全点调用 `LineTrace_ApplyTuningBlock()` 处理 SWD 写入的参数块。
+6. 用 `LineTrace_FillTelemetry()` 输出证据帧，供 SWD、串口、OLED 或上位机读取。
 
-```c
-static uint8_t board_line_read_level(uint8_t index, void *user)
-{
-    (void)user;
-    /* return 1 if GPIO is high, 0 if GPIO is low. */
-}
-```
+旧的逐通道回调入口 `LineTrace_Update()` 仍然保留，适合最简单的 GPIO 模块；新项目建议优先使用统一采样帧入口。
 
-3. 配置通道数、黑线电平、权重和读函数。
-4. 每 5-20 ms 调用一次 `LineTrace_Update()`。
-5. 把 `LineTrace_ControllerStep()` 产生的 `target_left/target_right` 交给你的速度环或电机 PWM 层。
-
-## 推荐配置
+## 推荐权重
 
 7 路灰度：
 
@@ -51,16 +49,26 @@ static const int16_t weights7[] = { -30, -20, -10, 0, 10, 20, 30 };
 static const int16_t weights8[] = { -35, -25, -15, -5, 5, 15, 25, 35 };
 ```
 
-如果你的模块是“黑线输出低电平”，配置 `LINE_TRACE_ACTIVE_LOW`；如果黑线输出高电平，配置 `LINE_TRACE_ACTIVE_HIGH`。
+如果模块是“黑线输出低电平”，配置 `LINE_TRACE_ACTIVE_LOW`；如果黑线输出高电平，配置 `LINE_TRACE_ACTIVE_HIGH`。
+
+## 调参边界
+
+SWD/运行时调参首版采用 RAM 参数块：
+
+- 上位机写 `g_line_tuning_block.algorithm` 和 `g_line_tuning_block.sensor`。
+- 上位机把 `apply_flag` 写成 `LINE_TRACE_APPLY_REQUEST`。
+- MCU 只在控制循环安全点读取候选参数、校验范围、应用参数，并写回 `status/error_code`。
+- 普通 `RUNNING` 状态拒绝热写；只有 `RUNNING_TUNE_SAFE` 接受有限幅的小步热调。
+- 运动中不自动写 Flash；稳定跑完后再考虑显式 commit。
 
 ## 验收顺序
 
-1. 静态打印 `raw_bits`，确认每一路遮住黑线时位图变化正确。
-2. 再看 `active_bits`，确认黑线电平极性没有反。
-3. 左右移动黑线，确认 `error` 左负右正。
-4. 只让小车低速循迹，不开高速。
-5. 加入丢线搜索和速度环。
+1. PC/mock：验证无黑线、单点、多点、全亮/全黑、split、边缘丢线。
+2. MSPM0 编译：GNU/CMake 或 Makefile 能稳定构建。
+3. 台架传感器：每个通道遮挡时 `raw_bits/active_bits` 映射正确。
+4. 低速车测：连续 3 圈或 3 分钟，无不可恢复丢线，无剧烈摆动。
+5. 热调参车测：运动中改 `kp/kd/base_speed/max_correction`，SWD 读回 `status=applied`；越界或危险突变能拒绝/回滚并记录 `error_code`。
 
 ## 注意
 
-模板默认 `error < 0` 表示线在左边，差速输出会让左轮减速、右轮加速。若你的电机方向或左右轮定义相反，先改电机层，不要把循迹层的符号到处打补丁。
+模板默认 `error < 0` 表示线在左边，差速输出会让左轮减速、右轮加速。若你的电机方向或左右轮定义相反，优先在电机层修正，不要在巡线算法层到处打补丁。
