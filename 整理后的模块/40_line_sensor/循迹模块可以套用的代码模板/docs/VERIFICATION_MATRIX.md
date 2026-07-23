@@ -6,7 +6,7 @@
 |---|---|---|---|---|
 | E-001 | PC/mock algorithm | G-008, G-009, G-012 | host 测试覆盖无黑线、单点、多点、全 active、split、边缘丢线、active_low、调参 apply/reject | verified: see `docs/EVIDENCE_INDEX.md` |
 | E-002 | MSPM0 build | G-008, G-012 | GNU/CMake 或 Makefile 能构建 MSPM0 接入示例或目标工程 | verified for GNU target build; hardware SWD readback pending |
-| E-003 | Bench sensor | G-003, G-004, G-009 | 每路遮挡时 `raw_bits/active_bits` 正确，左移 error 负，右移 error 正 | pending hardware |
+| E-003 | Bench sensor | G-003, G-004, G-009 | 每路遮挡时 `raw_bits/active_bits` 正确，左移 error 负，右移 error 正 | tooling verified; real bench samples pending |
 | E-004 | Low-speed car | G-008, G-009 | 低速连续 3 圈或 3 分钟，无不可恢复丢线，无明显剧烈摆动 | pending hardware |
 | E-005 | Hot tuning car | G-006, G-007, G-010 | 运动中成功修改 `kp/kd/base_speed/max_correction` 并读回 applied；危险参数被拒绝/回滚 | pending hardware |
 

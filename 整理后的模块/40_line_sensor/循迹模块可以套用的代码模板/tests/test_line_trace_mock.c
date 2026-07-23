@@ -221,10 +221,43 @@ static void test_tuning_block(void)
                  "running cold param dangerous jump error");
 }
 
+static void test_bench_snapshot(void)
+{
+    line_trace_telemetry_t telemetry;
+    line_trace_bench_snapshot_t snapshot;
+
+    memset(&telemetry, 0, sizeof(telemetry));
+    telemetry.loop_counter = 123u;
+    telemetry.raw_bits = 0xe7u;
+    telemetry.active_bits = 0x18u;
+    telemetry.position = 0;
+    telemetry.error = 0;
+    telemetry.confidence = 25u;
+    telemetry.pattern = LINE_TRACE_PATTERN_NORMAL;
+    telemetry.lost_dir = LINE_TRACE_LOST_NONE;
+    telemetry.target_left = 260;
+    telemetry.target_right = 260;
+    telemetry.tuning_status = LINE_TRACE_TUNING_APPLIED;
+    telemetry.error_code = LINE_TRACE_ERROR_OK;
+    telemetry.safety_state = LINE_TRACE_SAFETY_RUNNING_TUNE_SAFE;
+
+    LineTrace_FillBenchSnapshot(&telemetry, &snapshot);
+    require_true(snapshot.magic == LINE_TRACE_BENCH_MAGIC, "bench snapshot magic");
+    require_true(snapshot.version == LINE_TRACE_BENCH_VERSION, "bench snapshot version");
+    require_true(snapshot.size_words == (uint32_t)(sizeof(snapshot) / sizeof(uint32_t)),
+                 "bench snapshot size words");
+    require_true(snapshot.loop_counter == telemetry.loop_counter, "bench snapshot loop");
+    require_true(snapshot.raw_bits == telemetry.raw_bits, "bench snapshot raw bits");
+    require_true(snapshot.active_bits == telemetry.active_bits, "bench snapshot active bits");
+    require_true(snapshot.confidence == telemetry.confidence, "bench snapshot confidence");
+    require_true(snapshot.safety_state == telemetry.safety_state, "bench snapshot safety");
+}
+
 int main(void)
 {
     test_algorithm_cases();
     test_tuning_block();
+    test_bench_snapshot();
     puts("line_trace_mock_tests: PASS");
     return 0;
 }

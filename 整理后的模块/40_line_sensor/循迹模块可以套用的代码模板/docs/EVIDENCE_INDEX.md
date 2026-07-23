@@ -51,7 +51,7 @@
 - Path / command: `mingw32-make -f Makefile.mspm0g3507 clean all`
 - Linked Requirement ID: G-008, G-012, G-014
 - Linked Goal/subgoal: MSPM0G3507 GNU target build gate for line trace smoke ELF
-- Result: pass; `arm-none-eabi-gcc` built `build/mspm0g3507-line-trace-smoke/line_trace_smoke.elf/.hex/.bin`; `arm-none-eabi-size` reported `text=3640 data=68 bss=192 dec=3900`; `arm-none-eabi-nm` found `g_line_tuning_block=0x20200060`, `g_line_telemetry=0x20200044`, `g_line_smoke_counter=0x20200100`, `g_line_smoke_cookie=0x20200040`
+- Result: pass; `arm-none-eabi-gcc` built `build/mspm0g3507-line-trace-smoke/line_trace_smoke.elf/.hex/.bin`; `arm-none-eabi-size` reported `text=3788 data=68 bss=280 dec=4136`; `arm-none-eabi-nm` found `g_line_tuning_block=0x202000b8`, `g_line_telemetry=0x2020009c`, `g_line_bench_snapshot=0x20200044`, `g_line_smoke_counter=0x20200158`, `g_line_smoke_cookie=0x20200040`
 - Timestamp/context: 2026-07-23, Codex goal loop G-014 implementation turn, Windows `mingw32-make` + Arm GNU Toolchain 12.2
 - Status: verified for target build and ELF symbol availability
 
@@ -65,6 +65,17 @@
 - Result: pass; dry-run resolved ELF symbols and generated a pyOCD commander read-only command for `g_line_tuning_block`, `g_line_telemetry`, `g_line_smoke_counter`, and `g_line_smoke_cookie`
 - Timestamp/context: 2026-07-23, Codex goal loop G-014 implementation turn
 - Status: verified for symbol resolution and readback command generation; real hardware readback remains pending
+
+## E-003A
+
+- Evidence ID: E-003A
+- Source type: command/tool-dry-run
+- Path / command: `python tools\line_trace_bench_capture.py --elf build\mspm0g3507-line-trace-smoke\line_trace_smoke.elf --target mspm0g3507 --probe-uid 031305620164 --case dry_run_center`
+- Linked Requirement ID: G-003, G-004, G-009, G-015
+- Linked Goal/subgoal: E-003 bench sensor evidence collection method
+- Result: pass; dry-run resolved `g_line_bench_snapshot=0x20200044`, `word_count=22`, and generated read-only pyOCD command `status; read32 0x20200044 22; exit`
+- Timestamp/context: 2026-07-23, Codex goal loop G-015 implementation turn
+- Status: verified for bench capture tooling only; real sensor samples remain pending
 
 ## Pending Hardware Evidence
 

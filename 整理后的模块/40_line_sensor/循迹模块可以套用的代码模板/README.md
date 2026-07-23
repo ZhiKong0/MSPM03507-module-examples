@@ -21,8 +21,10 @@
 | `examples/mspm0g3507_smoke_main.c` | 不依赖 SysConfig 的 MSPM0G3507 smoke ELF 入口 |
 | `Makefile.mspm0g3507` | 使用 arm-none-eabi GNU 构建 smoke ELF/HEX/BIN |
 | `tools/line_trace_swd_readback.py` | 从 ELF 自动解析 SWD 读回符号并生成 pyOCD 读命令 |
+| `tools/line_trace_bench_capture.py` | 采集 `g_line_bench_snapshot` 并生成 E-003 JSON/CSV 证据 |
 | `tests/test_line_trace_mock.c` | PC/mock 算法与调参验证 |
 | `docs/MSPM0_BUILD_AND_SWD.md` | MSPM0 构建、符号读回和后续硬件验证方法 |
+| `docs/BENCH_SENSOR_VERIFICATION.md` | 台架传感器映射验证流程 |
 | `docs/LOOP_SPEC.md` | 已确认的 goal/loop 规格 |
 | `docs/VERIFICATION_MATRIX.md` | 五层证据门和验收矩阵 |
 | `SOURCE_ANALYSIS.md` | 候选巡线例程分析和取舍 |
@@ -51,6 +53,14 @@ Pop-Location
 ```
 
 真实上板前先读 `docs/MSPM0_BUILD_AND_SWD.md`。`line_trace_swd_readback.py` 默认是 dry-run，只解析 ELF 符号并生成 pyOCD 读命令；加 `--run` 才会真正访问 SWD。
+
+台架传感器验证时使用：
+
+```powershell
+python tools\line_trace_bench_capture.py --elf build\mspm0g3507-line-trace-smoke\line_trace_smoke.elf --probe-uid 031305620164 --case ch0_black
+```
+
+这条默认也是 dry-run；加 `--run --out-json ... --out-csv ...` 才会通过 SWD 只读采样。
 
 ## 推荐权重
 

@@ -34,10 +34,11 @@ smoke ELF 使用 MSPM0G3507 常见地址：
 
 - `g_line_tuning_block`
 - `g_line_telemetry`
+- `g_line_bench_snapshot`
 - `g_line_smoke_counter`
 - `g_line_smoke_cookie`
 
-这些符号是后续 SWD 读回的低风险观测点。`g_line_tuning_block` 和 `g_line_telemetry` 来自真实接入循环；`g_line_smoke_counter` 和 `g_line_smoke_cookie` 用于证明 smoke 固件在跑。
+这些符号是后续 SWD 读回的低风险观测点。`g_line_tuning_block` 和 `g_line_telemetry` 来自真实接入循环；`g_line_bench_snapshot` 是 4 字节对齐的台架采证快照；`g_line_smoke_counter` 和 `g_line_smoke_cookie` 用于证明 smoke 固件在跑。
 
 ## SWD 读回 dry-run
 
@@ -53,6 +54,18 @@ Pop-Location
 ```
 
 示例 dry-run 会输出 JSON，里面包含每个符号地址和只读 `pyocd commander` 命令。
+
+台架传感器验证使用专用采集工具：
+
+```powershell
+python tools\line_trace_bench_capture.py `
+  --elf build\mspm0g3507-line-trace-smoke\line_trace_smoke.elf `
+  --target mspm0g3507 `
+  --probe-uid 031305620164 `
+  --case dry_run_center
+```
+
+它默认解析 `g_line_bench_snapshot` 并生成 `read32 <addr> 22` 命令，不访问硬件。
 
 ## 真实 SWD 读回
 

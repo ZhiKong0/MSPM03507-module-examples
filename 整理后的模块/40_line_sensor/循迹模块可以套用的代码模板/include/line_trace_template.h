@@ -11,6 +11,8 @@ extern "C" {
 #define LINE_TRACE_TUNING_MAGIC 0x4C54554Eu
 #define LINE_TRACE_TUNING_VERSION 1u
 #define LINE_TRACE_APPLY_REQUEST 1u
+#define LINE_TRACE_BENCH_MAGIC 0x4C54424Eu
+#define LINE_TRACE_BENCH_VERSION 1u
 
 typedef enum {
     LINE_TRACE_ACTIVE_LOW = 0,
@@ -198,6 +200,31 @@ typedef struct {
     uint32_t loop_counter;
 } line_trace_telemetry_t;
 
+typedef struct {
+    uint32_t magic;
+    uint32_t version;
+    uint32_t size_words;
+    uint32_t loop_counter;
+    uint32_t raw_bits;
+    uint32_t active_bits;
+    uint32_t active_count;
+    int32_t position;
+    int32_t error;
+    uint32_t confidence;
+    uint32_t detected;
+    uint32_t pattern;
+    int32_t lost_dir;
+    int32_t target_left;
+    int32_t target_right;
+    int32_t correction;
+    uint32_t searching;
+    uint32_t threshold_status;
+    uint32_t sensor_status;
+    uint32_t tuning_status;
+    uint32_t error_code;
+    uint32_t safety_state;
+} line_trace_bench_snapshot_t;
+
 void LineTrace_Init(line_trace_t *trace, const line_trace_config_t *cfg);
 uint8_t LineTrace_Update(line_trace_t *trace, line_trace_result_t *out);
 uint8_t LineTrace_BuildSampleFrame(const line_trace_sensor_params_t *sensor,
@@ -230,6 +257,8 @@ void LineTrace_FillTelemetry(const line_trace_result_t *line,
                              line_trace_safety_state_t safety_state,
                              uint32_t loop_counter,
                              line_trace_telemetry_t *out);
+void LineTrace_FillBenchSnapshot(const line_trace_telemetry_t *telemetry,
+                                 line_trace_bench_snapshot_t *out);
 
 #ifdef __cplusplus
 }

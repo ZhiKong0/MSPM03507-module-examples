@@ -650,3 +650,41 @@ void LineTrace_FillTelemetry(const line_trace_result_t *line,
     out->safety_state = safety_state;
     out->loop_counter = loop_counter;
 }
+
+void LineTrace_FillBenchSnapshot(const line_trace_telemetry_t *telemetry,
+                                 line_trace_bench_snapshot_t *out)
+{
+    if (out == NULL) {
+        return;
+    }
+
+    memset(out, 0, sizeof(*out));
+    out->magic = LINE_TRACE_BENCH_MAGIC;
+    out->version = LINE_TRACE_BENCH_VERSION;
+    out->size_words = (uint32_t)(sizeof(*out) / sizeof(uint32_t));
+
+    if (telemetry == NULL) {
+        out->sensor_status = LINE_TRACE_SENSOR_FAULT;
+        return;
+    }
+
+    out->loop_counter = telemetry->loop_counter;
+    out->raw_bits = telemetry->raw_bits;
+    out->active_bits = telemetry->active_bits;
+    out->active_count = telemetry->active_count;
+    out->position = telemetry->position;
+    out->error = telemetry->error;
+    out->confidence = telemetry->confidence;
+    out->detected = telemetry->detected;
+    out->pattern = telemetry->pattern;
+    out->lost_dir = telemetry->lost_dir;
+    out->target_left = telemetry->target_left;
+    out->target_right = telemetry->target_right;
+    out->correction = telemetry->correction;
+    out->searching = telemetry->searching;
+    out->threshold_status = telemetry->threshold_status;
+    out->sensor_status = telemetry->sensor_status;
+    out->tuning_status = telemetry->tuning_status;
+    out->error_code = telemetry->error_code;
+    out->safety_state = telemetry->safety_state;
+}

@@ -33,6 +33,7 @@ static line_trace_sensor_params_t g_line_runtime_sensor = {
 
 volatile line_trace_tuning_block_t g_line_tuning_block;
 volatile line_trace_telemetry_t g_line_telemetry;
+volatile line_trace_bench_snapshot_t g_line_bench_snapshot;
 
 void App_LineTraceInit(void)
 {
@@ -90,4 +91,5 @@ void App_LineTraceTask20ms(void)
     LineTrace_FillTelemetry(&line, &cmd, &g_line_tuning_block, g_line_safety_state,
                             g_line_loop_counter, &telemetry);
     g_line_telemetry = telemetry;
+    LineTrace_FillBenchSnapshot(&telemetry, (line_trace_bench_snapshot_t *)&g_line_bench_snapshot);
 }

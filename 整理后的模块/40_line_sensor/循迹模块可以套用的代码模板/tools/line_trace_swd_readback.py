@@ -14,6 +14,7 @@ from pathlib import Path
 DEFAULT_SYMBOLS = [
     "g_line_tuning_block",
     "g_line_telemetry",
+    "g_line_bench_snapshot",
     "g_line_smoke_counter",
     "g_line_smoke_cookie",
 ]
