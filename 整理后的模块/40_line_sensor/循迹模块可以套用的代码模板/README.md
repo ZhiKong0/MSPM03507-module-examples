@@ -28,9 +28,11 @@
 | `tools/line_trace_swd_tune_validate.py` | 校验 E-005 热调参计划/证据是否覆盖 applied/rejected/rollback |
 | `tools/line_trace_profile_freeze.py` | 把已验证的 applied 调参计划冻结成可复用 JSON/C profile |
 | `tools/line_trace_profile_validate.py` | 校验 profile CRC、参数范围和 last-known-good 硬件证据边界 |
+| `tools/line_trace_hardware_gate_plan.py` | 生成 G-017 后的台架采样、热调参和 LKG 冻结执行计划，默认不访问硬件 |
 | `evidence/e003/` | 真实台架采样证据的默认存放位置和模板 |
 | `evidence/e005/` | 热调参 dry-run/真实车测证据的默认存放位置和模板 |
 | `evidence/e007/` | 调参 profile freeze 和未来持久化证据模板 |
+| `evidence/e008/` | G-017 硬件安全门执行计划和 dry-run 计划证据 |
 | `tests/test_line_trace_mock.c` | PC/mock 算法与调参验证 |
 | `docs/MSPM0_BUILD_AND_SWD.md` | MSPM0 构建、符号读回和后续硬件验证方法 |
 | `docs/BENCH_SENSOR_VERIFICATION.md` | 台架传感器映射验证流程 |
@@ -86,6 +88,14 @@ python tools\line_trace_swd_tune_plan.py `
 ```
 
 加 `--run --allow-ram-write` 才会真正通过 SWD 写 `g_line_tuning_block`，并且真实写入前必须先完成硬件安全确认、raw DAP/status gate 和电机安全状态确认。
+
+真实上板前可先生成 G-017 硬件门计划：
+
+```powershell
+python tools\line_trace_hardware_gate_plan.py
+```
+
+默认输出 `dry-run-plan`，只解析 fresh ELF、检查 UID/pack、写入 `evidence/e008/` 的 JSON/Markdown 计划，不 attach、不 flash、不 reset、不读 SWD、不写 RAM。需要生成真实命令清单时才加 `--include-run-commands --safety-token G017-HARDWARE-SAFE`，它仍然只写计划，不执行硬件命令。
 
 调参计划验证通过后，可以先冻结成候选 profile 便于复用审查：
 

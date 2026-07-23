@@ -17,7 +17,19 @@ gcc -std=c99 -Wall -Wextra -Werror -Iinclude src\line_trace_template.c tests\tes
 mingw32-make -f Makefile.mspm0g3507 clean all
 ```
 
-## 2. 台架门 E-003
+## 2. 硬件门计划 E-008
+
+真实接板前先生成计划：
+
+```powershell
+python tools\line_trace_hardware_gate_plan.py
+```
+
+默认只写 `dry-run-plan`，不会访问 SWD。计划文件会列出 G-017 安全确认、
+E-002H status gate、E-003 台架采样、E-005 热调参和 E-007 LKG freeze 的顺序。
+未确认 G-017 时，不生成或执行真实 `--run` 命令。
+
+## 3. 台架门 E-003
 
 不开电机，只采样：
 
@@ -28,7 +40,7 @@ mingw32-make -f Makefile.mspm0g3507 clean all
 
 通过条件：每路遮挡 bit 正确，左侧 error 为负，右侧 error 为正。
 
-## 3. 低速门 E-004
+## 4. 低速门 E-004
 
 先用保守参数：
 
@@ -39,7 +51,7 @@ mingw32-make -f Makefile.mspm0g3507 clean all
 
 通过条件：连续 3 圈或 3 分钟，无不可恢复丢线，无明显剧烈摆动。
 
-## 4. 热调门 E-005
+## 5. 热调门 E-005
 
 只在 `RUNNING_TUNE_SAFE` 中小步修改：
 
@@ -56,7 +68,7 @@ mingw32-make -f Makefile.mspm0g3507 clean all
 - `applied_seq/rejected_seq`
 - telemetry 或 bench snapshot
 
-## 5. 冻结 profile
+## 6. 冻结 profile
 
 只有 applied 且验证通过的计划才能 freeze。dry-run 只能生成
 `dry-run-candidate`；真实车测通过后才能升级 `last-known-good`。
@@ -69,7 +81,7 @@ python tools\line_trace_profile_validate.py evidence\e007\profile-dryrun-kp42.js
 
 工程接入示例见 `examples/profile_usage_example.c`。
 
-## 6. 不做的事
+## 7. 不做的事
 
 - 不用 SWD 直接写 PWM/GPIO/I2C/SPI/UART 外设寄存器。
 - 不把一次偶然能跑的参数直接写 Flash。

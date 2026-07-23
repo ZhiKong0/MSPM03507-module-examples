@@ -80,6 +80,30 @@ python tools\line_trace_swd_tune_plan.py `
 
 以上命令默认都是 dry-run，不 attach、不 flash、不 reset、不写 RAM。
 
+## G-017 硬件门计划
+
+真实上板前先生成计划，确认接下来会做什么、哪些命令被安全门省略：
+
+```powershell
+python tools\line_trace_hardware_gate_plan.py
+```
+
+默认输出：
+
+- `evidence/e008/e008-g017-plan.json`
+- `evidence/e008/e008-g017-plan.md`
+
+这个计划只解析 fresh ELF 符号、检查目标 UID/pack 信息并写文件；不访问 SWD。
+如果需要把真实 `--run` 命令也写入计划，必须显式使用：
+
+```powershell
+python tools\line_trace_hardware_gate_plan.py `
+  --include-run-commands `
+  --safety-token G017-HARDWARE-SAFE
+```
+
+即使加了这个 token，脚本也只生成计划，不执行 pyOCD。
+
 ## 真实 SWD 读回
 
 真实读回前必须满足硬件门：

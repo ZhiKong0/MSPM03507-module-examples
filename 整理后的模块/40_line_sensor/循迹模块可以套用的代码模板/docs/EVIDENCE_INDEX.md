@@ -143,6 +143,17 @@
 - Timestamp/context: 2026-07-23, Codex goal continuation without G-017 hardware confirmation
 - Status: verified for tooling; real `last-known-good` profile still requires E-003/E-004/E-005 hardware evidence
 
+## E-008
+
+- Evidence ID: E-008
+- Source type: command/tooling-check
+- Path / command: `python tools\line_trace_hardware_gate_plan.py`; run-command plan shape checked with `--include-run-commands --safety-token G017-HARDWARE-SAFE` into `%TEMP%`
+- Linked Requirement ID: G-008, G-016, G-017
+- Linked Goal/subgoal: generate the post-G-017 execution plan for E-002H/E-003/E-005/E-007 without touching hardware
+- Result: pass; default `dry-run-plan` resolved fresh ELF symbols, checked exact UID `031305620164` and TI DFP pack SHA-256, wrote `evidence/e008/e008-g017-plan.json` and `.md`, and omitted real `--run` commands until the explicit safety token is used
+- Timestamp/context: 2026-07-23, Codex goal continuation without G-017 hardware confirmation
+- Status: verified for hardware-gate planning only; real SWD/status/bench/hot-tuning evidence remains pending
+
 ## Pending Hardware Evidence
 
 - E-002H: real hardware SWD readback remains pending.

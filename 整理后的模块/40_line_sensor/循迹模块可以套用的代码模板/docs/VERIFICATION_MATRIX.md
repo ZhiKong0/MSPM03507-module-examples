@@ -12,6 +12,7 @@
 | E-005 | Hot tuning car | G-006, G-007, G-010 | 运动中成功修改 `kp/kd/base_speed/max_correction` 并读回 applied；危险参数被拒绝/回滚 | pending hardware |
 | E-007 | Profile freeze | G-009, G-011 | applied 调参计划能冻结为带 CRC 的可复用 profile；dry-run 不可冒充 last-known-good | verified for tooling; real last-known-good still requires hardware |
 | E-007B | Profile validate/use | G-009, G-011 | profile CRC/范围/证据边界可校验，生成的 C profile 可接入初始化示例 | verified for tooling; real last-known-good still requires hardware |
+| E-008 | Hardware gate plan | G-008, G-016, G-017 | G-017 后的 status gate、台架采样、热调参和 LKG 冻结顺序可生成机器可读计划，默认不访问硬件 | verified for planning only; real hardware still pending |
 
 ## PC/mock Cases
 
@@ -36,3 +37,4 @@
 - 未确认 G-017 硬件安全门时，只允许执行 E-005A dry-run/validator，不执行真实 SWD RAM 写入。
 - dry-run profile 只能标记为 `dry-run-candidate`；写 Flash 的 `last-known-good` 必须等真实 E-003/E-004/E-005 证据齐全。
 - 复用 profile 前必须先通过 `line_trace_profile_validate.py`；工程接入参考 `profile_usage_example.c`。
+- 真实上板前先运行 `line_trace_hardware_gate_plan.py` 生成 E-008 计划；未确认 G-017 时不要输出或执行真实 `--run` 命令。
