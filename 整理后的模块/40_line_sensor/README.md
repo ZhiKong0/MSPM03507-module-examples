@@ -14,6 +14,10 @@
 | `待整理的文件夹/github/Comet966__MSPM0G3507_examples` | 灰度/诊断候选，待二次抽证据 | `source-index` |
 | `待整理的文件夹/github/military-doge__Grayscale-Line-Follower-Robot` | 灰度巡线思路参考 | `source-index` |
 
+## 可套用模板
+
+已新建 `循迹模块可以套用的代码模板/`。该模板重写了可移植的 GPIO 读入、线位估计、丢线方向保持和差速控制输出，适合从 4/5/7/8 路灰度模块快速接入 MSPM0G3507 小车工程。
+
 ## 证据路径
 
 - `待整理的文件夹/github/DQ103__mspm0-car-2024-h/CMakeLists.txt:16` 和 `:42`：工程包含 `Drivers/LineTracker` 并收集 `linetracker.c`。
