@@ -1,0 +1,58 @@
+TOOLCHAIN_PREFIX ?= arm-none-eabi-
+CC := $(TOOLCHAIN_PREFIX)gcc
+OBJCOPY := $(TOOLCHAIN_PREFIX)objcopy
+SIZE := $(TOOLCHAIN_PREFIX)size
+NM := $(TOOLCHAIN_PREFIX)nm
+PYTHON ?= python
+
+BUILD_DIR ?= build/mspm0g3507-line-trace-smoke
+TARGET := line_trace_smoke
+
+CFLAGS := -mcpu=cortex-m0plus -mthumb -std=c99 -Os -g3
+CFLAGS += -ffreestanding -ffunction-sections -fdata-sections
+CFLAGS += -Wall -Wextra -Werror
+CFLAGS += -Iinclude
+
+LDFLAGS := -mcpu=cortex-m0plus -mthumb
+LDFLAGS += -T linker/mspm0g3507_smoke.ld
+LDFLAGS += -nostartfiles -nostdlib
+LDFLAGS += -Wl,--gc-sections
+LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map
+LDLIBS := -lgcc
+
+SOURCES := \
+	src/line_trace_template.c \
+	examples/integration_loop_example.c \
+	examples/mspm0g3507_smoke_main.c
+
+OBJECTS := $(patsubst %.c,$(BUILD_DIR)/%.o,$(SOURCES))
+ELF := $(BUILD_DIR)/$(TARGET).elf
+HEX := $(BUILD_DIR)/$(TARGET).hex
+BIN := $(BUILD_DIR)/$(TARGET).bin
+
+.PHONY: all clean size symbols
+
+all: $(ELF) $(HEX) $(BIN) size symbols
+
+$(BUILD_DIR)/%.o: %.c
+	$(PYTHON) -c "import os; os.makedirs(r'$(dir $@)', exist_ok=True)"
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(ELF): $(OBJECTS) linker/mspm0g3507_smoke.ld
+	$(CC) $(LDFLAGS) $(OBJECTS) $(LDLIBS) -o $@
+
+$(HEX): $(ELF)
+	$(OBJCOPY) -O ihex $< $@
+
+$(BIN): $(ELF)
+	$(OBJCOPY) -O binary $< $@
+
+size: $(ELF)
+	$(SIZE) $<
+
+symbols: $(ELF)
+	$(NM) -g --defined-only $< > $(BUILD_DIR)/$(TARGET).symbols.txt
+	$(PYTHON) tools/line_trace_swd_readback.py --elf $< --nm $(NM) --target mspm0g3507
+
+clean:
+	$(PYTHON) -c "import shutil; shutil.rmtree(r'$(BUILD_DIR)', ignore_errors=True)"
