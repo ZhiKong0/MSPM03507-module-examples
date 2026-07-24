@@ -4,6 +4,10 @@
 #define BOARD_APP_ENABLE_LINE_GPIO 0
 #endif
 
+#ifndef BOARD_APP_ENABLE_LINE_MUX_4051
+#define BOARD_APP_ENABLE_LINE_MUX_4051 0
+#endif
+
 #ifndef BOARD_APP_ENABLE_ROTARY_MENU
 #define BOARD_APP_ENABLE_ROTARY_MENU 1
 #endif
@@ -69,6 +73,12 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
     DL_GPIO_initDigitalOutput(TFT_LCD_DC_IOMUX);
     DL_GPIO_initDigitalOutput(TFT_LCD_CS_IOMUX);
     DL_GPIO_initDigitalOutput(TFT_LCD_BLK_IOMUX);
+#if BOARD_APP_ENABLE_LINE_MUX_4051
+    DL_GPIO_initDigitalOutput(LINE_MUX_S0_IOMUX);
+    DL_GPIO_initDigitalOutput(LINE_MUX_S1_IOMUX);
+    DL_GPIO_initDigitalOutput(LINE_MUX_S2_IOMUX);
+    DL_GPIO_initDigitalOutput(LINE_MUX_E_IOMUX);
+#endif
 
     DL_GPIO_clearPins(GPIOA,
                       MOTOR_B_IN1_PIN | BUZZER_PIN | RGB2_PIN |
@@ -92,6 +102,18 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
     init_pullup_input(ROTARY_ENC_B_IOMUX);
     init_pullup_input(ROTARY_ENC_C_IOMUX);
     init_pullup_input(MENU_EXIT_BUTTON_IOMUX);
+#endif
+
+#if BOARD_APP_ENABLE_LINE_MUX_4051
+    DL_GPIO_clearPins(LINE_MUX_S0_PORT, LINE_MUX_S0_PIN);
+    DL_GPIO_clearPins(LINE_MUX_S1_PORT, LINE_MUX_S1_PIN);
+    DL_GPIO_clearPins(LINE_MUX_S2_PORT, LINE_MUX_S2_PIN);
+    DL_GPIO_clearPins(LINE_MUX_E_PORT, LINE_MUX_E_PIN);
+    DL_GPIO_enableOutput(LINE_MUX_S0_PORT, LINE_MUX_S0_PIN);
+    DL_GPIO_enableOutput(LINE_MUX_S1_PORT, LINE_MUX_S1_PIN);
+    DL_GPIO_enableOutput(LINE_MUX_S2_PORT, LINE_MUX_S2_PIN);
+    DL_GPIO_enableOutput(LINE_MUX_E_PORT, LINE_MUX_E_PIN);
+    init_pullup_input(LINE_MUX_Z_IOMUX);
 #endif
 
 #if BOARD_APP_ENABLE_LINE_GPIO

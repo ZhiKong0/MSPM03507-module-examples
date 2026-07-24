@@ -29,6 +29,7 @@ typedef struct {
     int16_t line_position;
     int16_t line_error;
     uint8_t line_gpio_enabled;
+    uint8_t line_mux_4051_enabled;
     uint8_t lcd_init_ok;
     uint8_t lcd_backlight_on;
     uint8_t motors_armed;

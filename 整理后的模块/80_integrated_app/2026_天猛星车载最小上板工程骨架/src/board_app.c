@@ -15,6 +15,24 @@
 #define BOARD_APP_ENABLE_LINE_GPIO 0
 #endif
 
+#ifndef BOARD_APP_ENABLE_LINE_MUX_4051
+#define BOARD_APP_ENABLE_LINE_MUX_4051 0
+#endif
+
+#if BOARD_APP_ENABLE_LINE_GPIO && BOARD_APP_ENABLE_LINE_MUX_4051
+#error "Enable either BOARD_APP_ENABLE_LINE_GPIO or BOARD_APP_ENABLE_LINE_MUX_4051, not both."
+#endif
+
+#if BOARD_APP_ENABLE_LINE_GPIO || BOARD_APP_ENABLE_LINE_MUX_4051
+#define BOARD_APP_LINE_SENSOR_ENABLED 1
+#else
+#define BOARD_APP_LINE_SENSOR_ENABLED 0
+#endif
+
+#ifndef BOARD_APP_LINE_MUX_SETTLE_CYCLES
+#define BOARD_APP_LINE_MUX_SETTLE_CYCLES 64u
+#endif
+
 #ifndef BOARD_APP_ENABLE_TFT_LCD
 #define BOARD_APP_ENABLE_TFT_LCD 1
 #endif
@@ -115,6 +133,47 @@ static uint8_t read_line_raw_bits(void)
 
     for (uint8_t i = 0u; i < 8u; ++i) {
         if (line_pin_is_high(i) != 0u) {
+            raw = (uint8_t)(raw | (uint8_t)(1u << i));
+        }
+    }
+
+    return raw;
+}
+#endif
+
+#if BOARD_APP_ENABLE_LINE_MUX_4051
+static void set_line_mux_4051_channel(uint8_t channel)
+{
+    if ((channel & 0x01u) != 0u) {
+        DL_GPIO_setPins(LINE_MUX_S0_PORT, LINE_MUX_S0_PIN);
+    } else {
+        DL_GPIO_clearPins(LINE_MUX_S0_PORT, LINE_MUX_S0_PIN);
+    }
+
+    if ((channel & 0x02u) != 0u) {
+        DL_GPIO_setPins(LINE_MUX_S1_PORT, LINE_MUX_S1_PIN);
+    } else {
+        DL_GPIO_clearPins(LINE_MUX_S1_PORT, LINE_MUX_S1_PIN);
+    }
+
+    if ((channel & 0x04u) != 0u) {
+        DL_GPIO_setPins(LINE_MUX_S2_PORT, LINE_MUX_S2_PIN);
+    } else {
+        DL_GPIO_clearPins(LINE_MUX_S2_PORT, LINE_MUX_S2_PIN);
+    }
+
+    delay_cycles(BOARD_APP_LINE_MUX_SETTLE_CYCLES);
+}
+
+static uint8_t read_line_mux_4051_bits(void)
+{
+    uint8_t raw = 0u;
+
+    DL_GPIO_clearPins(LINE_MUX_E_PORT, LINE_MUX_E_PIN);
+
+    for (uint8_t i = 0u; i < 8u; ++i) {
+        set_line_mux_4051_channel(i);
+        if (DL_GPIO_readPins(LINE_MUX_Z_PORT, LINE_MUX_Z_PIN) != 0u) {
             raw = (uint8_t)(raw | (uint8_t)(1u << i));
         }
     }
@@ -315,7 +374,7 @@ static void update_h_task_command(void)
         g_line_cmd.correction = 0;
         g_line_cmd.searching = 0u;
     } else if (h_rt->drive_mode == NUEDC_2024_H_DRIVE_LINE_FOLLOW) {
-#if BOARD_APP_ENABLE_LINE_GPIO
+#if BOARD_APP_LINE_SENSOR_ENABLED
         LineTrace_ControllerStep(&g_line_controller, &g_line_result,
                                  h_rt->base_speed_permille, &g_line_cmd);
 #else
@@ -344,6 +403,7 @@ static void refresh_runtime(const line_trace_telemetry_t *telemetry)
     g_board_app_runtime.line_position = g_line_result.position;
     g_board_app_runtime.line_error = g_line_result.error;
     g_board_app_runtime.line_gpio_enabled = BOARD_APP_ENABLE_LINE_GPIO ? 1u : 0u;
+    g_board_app_runtime.line_mux_4051_enabled = BOARD_APP_ENABLE_LINE_MUX_4051 ? 1u : 0u;
     g_board_app_runtime.motors_armed = g_board.motors_armed;
     g_board_app_runtime.motor_output_enabled = BOARD_APP_ENABLE_MOTOR_OUTPUT ? 1u : 0u;
     g_board_app_runtime.safety_state = telemetry->safety_state;
@@ -608,6 +668,10 @@ void BoardApp_Poll(void)
 
 #if BOARD_APP_ENABLE_LINE_GPIO
     raw_bits = read_line_raw_bits();
+    sensor_status = LINE_TRACE_SENSOR_OK;
+#endif
+#if BOARD_APP_ENABLE_LINE_MUX_4051
+    raw_bits = read_line_mux_4051_bits();
     sensor_status = LINE_TRACE_SENSOR_OK;
 #endif
     if (LineTrace_BuildSampleFrame(&g_line_sensor, raw_bits, 0u,
