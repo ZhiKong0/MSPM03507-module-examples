@@ -1,5 +1,13 @@
 #include "ti_msp_dl_config.h"
 
+#ifndef BOARD_APP_ENABLE_LINE_GPIO
+#define BOARD_APP_ENABLE_LINE_GPIO 0
+#endif
+
+#ifndef BOARD_APP_ENABLE_ROTARY_MENU
+#define BOARD_APP_ENABLE_ROTARY_MENU 1
+#endif
+
 SYSCONFIG_WEAK void SYSCFG_DL_init(void)
 {
     SYSCFG_DL_initPower();
@@ -24,7 +32,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_initPower(void)
     delay_cycles(POWER_STARTUP_DELAY);
 }
 
-static void init_line_input(uint32_t iomux)
+static void init_pullup_input(uint32_t iomux)
 {
     DL_GPIO_initDigitalInputFeatures(iomux,
                                      DL_GPIO_INVERSION_DISABLE,
@@ -79,14 +87,25 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
                              RGB0_PIN | RGB1_PIN | TFT_LCD_DC_PIN |
                              TFT_LCD_BLK_PIN);
 
-    init_line_input(LINE_TRACE_CH0_IOMUX);
-    init_line_input(LINE_TRACE_CH1_IOMUX);
-    init_line_input(LINE_TRACE_CH2_IOMUX);
-    init_line_input(LINE_TRACE_CH3_IOMUX);
-    init_line_input(LINE_TRACE_CH4_IOMUX);
-    init_line_input(LINE_TRACE_CH5_IOMUX);
-    init_line_input(LINE_TRACE_CH6_IOMUX);
-    init_line_input(LINE_TRACE_CH7_IOMUX);
+#if BOARD_APP_ENABLE_ROTARY_MENU
+    init_pullup_input(ROTARY_ENC_A_IOMUX);
+    init_pullup_input(ROTARY_ENC_B_IOMUX);
+    init_pullup_input(ROTARY_ENC_C_IOMUX);
+    init_pullup_input(MENU_EXIT_BUTTON_IOMUX);
+#endif
+
+#if BOARD_APP_ENABLE_LINE_GPIO
+#if !BOARD_APP_ENABLE_ROTARY_MENU
+    init_pullup_input(LINE_TRACE_CH0_IOMUX);
+    init_pullup_input(LINE_TRACE_CH1_IOMUX);
+    init_pullup_input(LINE_TRACE_CH2_IOMUX);
+#endif
+    init_pullup_input(LINE_TRACE_CH3_IOMUX);
+    init_pullup_input(LINE_TRACE_CH4_IOMUX);
+    init_pullup_input(LINE_TRACE_CH5_IOMUX);
+    init_pullup_input(LINE_TRACE_CH6_IOMUX);
+    init_pullup_input(LINE_TRACE_CH7_IOMUX);
+#endif
 }
 
 SYSCONFIG_WEAK void SYSCFG_DL_SYSCTL_init(void)

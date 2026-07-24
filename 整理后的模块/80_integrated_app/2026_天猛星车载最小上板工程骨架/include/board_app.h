@@ -5,6 +5,8 @@
 
 #include "jy61p_min.h"
 #include "line_trace_template.h"
+#include "nuedc_2024_h_app.h"
+#include "rotary_menu.h"
 #include "tmx_expansion_board.h"
 
 #ifdef __cplusplus
@@ -32,6 +34,28 @@ typedef struct {
     uint8_t motors_armed;
     uint8_t motor_output_enabled;
     uint8_t safety_state;
+    uint8_t rotary_selected;
+    uint8_t rotary_button_down;
+    uint8_t exit_button_down;
+    uint8_t rotary_last_action;
+    uint32_t exit_button_counter;
+    int32_t rotary_detents;
+    uint8_t menu_status_code;
+    uint8_t h_mode;
+    uint8_t h_drive_mode;
+    uint8_t h_from_point;
+    uint8_t h_to_point;
+    uint8_t h_segment_index;
+    uint8_t h_segment_count;
+    uint8_t h_lap_index;
+    uint8_t h_lap_count;
+    uint8_t h_running;
+    uint8_t h_done;
+    uint8_t h_fault;
+    uint32_t h_elapsed_ms;
+    uint32_t h_deadline_ms;
+    int16_t h_target_left_permille;
+    int16_t h_target_right_permille;
 } board_app_runtime_t;
 
 void BoardApp_Init(void);
@@ -41,6 +65,7 @@ void BoardApp_Stop(void);
 extern volatile board_app_runtime_t g_board_app_runtime;
 extern volatile line_trace_tuning_block_t g_board_app_line_tuning;
 extern volatile line_trace_bench_snapshot_t g_board_app_line_snapshot;
+extern volatile nuedc_2024_h_runtime_t g_board_app_h_runtime;
 
 #ifdef __cplusplus
 }

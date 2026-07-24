@@ -22,6 +22,7 @@ CFLAGS += -Wno-error=maybe-uninitialized
 CFLAGS += -D__MSPM0G3507__ -DTMX_EXAMPLE_WITH_TI_DRIVERLIB=1
 CFLAGS += -DBOARD_APP_ENABLE_LINE_GPIO=0
 CFLAGS += -DBOARD_APP_ENABLE_TFT_LCD=1
+CFLAGS += -DBOARD_APP_ENABLE_ROTARY_MENU=1
 CFLAGS += -DBOARD_APP_ENABLE_OLED_PROBE=0
 CFLAGS += -Iinclude -Isyscfg
 CFLAGS += -I$(STAGE_DIR)/bsp/include
@@ -41,6 +42,8 @@ SOURCES := \
 	src/main.c \
 	src/board_app.c \
 	src/jy61p_min.c \
+	src/nuedc_2024_h_app.c \
+	src/rotary_menu.c \
 	src/tft_lcd_min.c \
 	syscfg/ti_msp_dl_config.c \
 	$(STAGE_DIR)/bsp/src/tmx_expansion_board.c \
