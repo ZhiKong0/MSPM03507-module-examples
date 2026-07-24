@@ -1,10 +1,14 @@
 # 20 板级 BSP
 
-状态：`source-index`
+状态：`template-index`
 
-## 模块目的
+这个目录沉淀 MSPM0G3507 板级初始化边界：电源、GPIO、I2C、UART、Timer/PWM、SysConfig 生成文件、pin map、中断入口和拓展板资源分配。BSP 层只负责“硬件怎么接、外设怎么安全初始化”，不要把循迹算法、电机闭环或比赛策略写进来。
 
-沉淀 MSPM0G3507 板级初始化边界：时钟、电源、GPIO、I2C、UART、Timer、SysConfig 生成文件、pin map 和中断入口。这个目录先做索引，后续再拆成可复用 BSP。
+## 已整理模板
+
+| 目录 | 作用 | 当前状态 |
+|---|---|---|
+| `2026_天猛星拓展板例程模板/` | 根据 `2026电赛天猛星最终版` 原理图整理的拓展板 pin map、安全 smoke test 和 SysConfig 适配骨架 | `template-v0.1-board-bsp` |
 
 ## 首批候选来源
 
@@ -16,18 +20,19 @@
 
 ## 证据路径
 
-- `待整理的文件夹/official_ti_sdk/mspm0_sdk_2_11_00_07/examples/nortos/LP_MSPM0G3507/driverlib/uart_rw_multibyte_fifo_poll/ti_msp_dl_config.c:47` 到 `:53`：官方 SysConfig 初始化拆为 power、GPIO、SYSCTL、UART。
-- `待整理的文件夹/official_ti_sdk/mspm0_sdk_2_11_00_07/examples/nortos/LP_MSPM0G3507/driverlib/gpio_toggle_output/gpio_toggle_output.syscfg:19` 到 `:25`：GPIO 组和 LED pin 分配。
-- `待整理的文件夹/github/DQ103__mspm0-car-2024-h/CLAUDE.md:63` 和 `:64`：上游把设备层和控制算法层拆开。
-- `待整理的文件夹/github/DQ103__mspm0-car-2024-h/CLAUDE.md:120`：记录 MPU6050 I2C 引脚 PA12/PA13。
-- `待整理的文件夹/github/2262727886-stack__mspm0g-contest-skill/README.md:181` 到 `:199`：列出 TB6612、OLED、MPU6050、K230 UART、调试 UART 的 pin 映射。
+- `待整理的文件夹/official_ti_sdk/mspm0_sdk_2_11_00_07/examples/nortos/LP_MSPM0G3507/driverlib/uart_rw_multibyte_fifo_poll/ti_msp_dl_config.c`：官方 SysConfig 初始化拆分为 power、GPIO、SYSCTL、UART。
+- `待整理的文件夹/official_ti_sdk/mspm0_sdk_2_11_00_07/examples/nortos/LP_MSPM0G3507/driverlib/gpio_toggle_output/gpio_toggle_output.syscfg`：GPIO 组和 LED pin 分配。
+- `待整理的文件夹/github/DQ103__mspm0-car-2024-h/CLAUDE.md`：上游把设备层和控制算法层拆开。
+- `待整理的文件夹/github/2262727886-stack__mspm0g-contest-skill/README.md`：列出 TB6612、OLED、MPU6050、K230 UART、调试 UART 的 pin 映射。
+- `2026_天猛星拓展板例程模板/SCHEMATIC_PIN_MAP.md`：本仓库根据用户提供原理图图片整理的天猛星拓展板 pin map。
 
 ## 下一步
 
-1. 新建统一 `pin_map_candidates.md`，把官方、DQ103、contest-skill 的冲突 pin 标出来。
-2. 将 SysConfig 生成代码边界写清：哪些文件可生成、哪些文件必须手写维护。
-3. 先不要确定最终比赛接线，等电机、OLED、BNO/MPU、视觉模块都定后再合并 pin 表。
+1. 用原始 EasyEDA 工程或高清导出图复核 `2026_天猛星拓展板例程模板/SCHEMATIC_PIN_MAP.md` 里的待核对项。
+2. 把 `examples/mspm0g3507_syscfg_adapter_example.c` 接到真实 SysConfig 宏，补全 Timer PWM、I2C probe、UART write。
+3. 电机/编码器方向确认后，把 Motor A/B 与左右轮关系写入 `30_motor_encoder`。
+4. 确认 IMU 走 MPU6050 I2C 还是 JY 串口后，再进入 `50_imu_pose`。
 
 ## 许可和构建备注
 
-BSP 是最容易发生“引脚冲突”和“复制来源混乱”的层。正式代码应优先重写本仓库自己的 `board.h/board.c`，第三方 pin 表仅作证据和迁移参考。
+BSP 是最容易发生“引脚冲突”和“复制来源混乱”的层。正式代码优先重写本仓库自己的 `board.h/board.c`；第三方 pin 表只作为证据和迁移参考。主验收路径仍然是 `CMake/Makefile + arm-none-eabi + pyOCD/DAPLink`，Keil/CCS/SysConfig 工程作为迁移参考。
