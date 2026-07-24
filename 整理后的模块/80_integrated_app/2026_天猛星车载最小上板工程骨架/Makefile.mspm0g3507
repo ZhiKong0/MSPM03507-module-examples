@@ -1,0 +1,92 @@
+TOOLCHAIN_PREFIX ?= arm-none-eabi-
+CC := $(TOOLCHAIN_PREFIX)gcc
+OBJCOPY := $(TOOLCHAIN_PREFIX)objcopy
+SIZE := $(TOOLCHAIN_PREFIX)size
+NM := $(TOOLCHAIN_PREFIX)nm
+PYTHON ?= python
+
+SDK_ROOT ?= ../../../待整理的文件夹/official_ti_sdk/mspm0_sdk_2_11_00_07
+BSP_DIR ?= ../../20_board_bsp/2026_天猛星拓展板例程模板
+LINE_DIR ?= ../../40_line_sensor/循迹模块可以套用的代码模板
+
+BUILD_DIR ?= build/tmx_car_minimal
+STAGE_DIR := $(BUILD_DIR)/staged_deps
+STAGE_STAMP := $(STAGE_DIR)/.stamp
+TARGET := tmx_car_minimal
+
+CFLAGS := -mcpu=cortex-m0plus -march=armv6-m -mthumb -mfloat-abi=soft
+CFLAGS += -std=c99 -Os -g3 -gstrict-dwarf
+CFLAGS += -ffunction-sections -fdata-sections
+CFLAGS += -Wall -Wextra -Werror
+CFLAGS += -Wno-error=maybe-uninitialized
+CFLAGS += -D__MSPM0G3507__ -DTMX_EXAMPLE_WITH_TI_DRIVERLIB=1
+CFLAGS += -DTMX_SYSCFG_I2C_PROBE_SEND_OLED_CONTROL_BYTE=1
+CFLAGS += -Iinclude -Isyscfg
+CFLAGS += -I$(STAGE_DIR)/bsp/include
+CFLAGS += -I$(STAGE_DIR)/line/include
+CFLAGS += -I$(STAGE_DIR)/sdk/source
+CFLAGS += -I$(STAGE_DIR)/sdk/source/third_party/CMSIS/Core/Include
+
+LDFLAGS := -mcpu=cortex-m0plus -march=armv6-m -mthumb -mfloat-abi=soft
+LDFLAGS += -nostartfiles
+LDFLAGS += -Wl,--gc-sections
+LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map
+LDFLAGS += -T $(STAGE_DIR)/sdk/source/ti/devices/msp/m0p/linker_files/gcc/mspm0g3507.lds
+LDFLAGS += --specs=nano.specs --specs=nosys.specs
+LDLIBS := -Wl,--start-group -lc -lm -lgcc -Wl,--end-group
+
+SOURCES := \
+	src/main.c \
+	src/board_app.c \
+	src/jy61p_min.c \
+	syscfg/ti_msp_dl_config.c \
+	$(STAGE_DIR)/bsp/src/tmx_expansion_board.c \
+	$(STAGE_DIR)/bsp/examples/mspm0g3507_syscfg_adapter_example.c \
+	$(STAGE_DIR)/line/src/line_trace_template.c \
+	$(STAGE_DIR)/sdk/source/ti/driverlib/dl_common.c \
+	$(STAGE_DIR)/sdk/source/ti/driverlib/dl_gpio.c \
+	$(STAGE_DIR)/sdk/source/ti/driverlib/dl_i2c.c \
+	$(STAGE_DIR)/sdk/source/ti/driverlib/dl_timer.c \
+	$(STAGE_DIR)/sdk/source/ti/driverlib/dl_timerg.c \
+	$(STAGE_DIR)/sdk/source/ti/driverlib/dl_uart.c \
+	$(STAGE_DIR)/sdk/source/ti/driverlib/m0p/dl_factoryregion.c \
+	$(STAGE_DIR)/sdk/source/ti/driverlib/m0p/dl_interrupt.c \
+	$(STAGE_DIR)/sdk/source/ti/driverlib/m0p/sysctl/dl_sysctl_mspm0g1x0x_g3x0x.c \
+	$(STAGE_DIR)/sdk/source/ti/devices/msp/m0p/startup_system_files/gcc/startup_mspm0g350x_gcc.c
+
+OBJECTS := $(patsubst %.c,$(BUILD_DIR)/%.o,$(SOURCES))
+ELF := $(BUILD_DIR)/$(TARGET).elf
+HEX := $(BUILD_DIR)/$(TARGET).hex
+BIN := $(BUILD_DIR)/$(TARGET).bin
+SYMBOLS := $(BUILD_DIR)/$(TARGET).symbols.txt
+
+.PHONY: all clean size symbols
+
+all: $(ELF) $(HEX) $(BIN) size symbols
+
+$(STAGE_STAMP): tools/stage_deps.py
+	$(PYTHON) tools/stage_deps.py --stage "$(STAGE_DIR)"
+
+$(OBJECTS): $(STAGE_STAMP)
+
+$(BUILD_DIR)/%.o: %.c
+	$(PYTHON) -c "import os; os.makedirs(r'$(dir $@)', exist_ok=True)"
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(ELF): $(OBJECTS)
+	$(CC) $(LDFLAGS) $(OBJECTS) $(LDLIBS) -o $@
+
+$(HEX): $(ELF)
+	$(OBJCOPY) -O ihex $< $@
+
+$(BIN): $(ELF)
+	$(OBJCOPY) -O binary $< $@
+
+size: $(ELF)
+	$(SIZE) $<
+
+symbols: $(ELF)
+	$(NM) -g --defined-only $< > $(SYMBOLS)
+
+clean:
+	$(PYTHON) -c "import shutil; shutil.rmtree(r'$(BUILD_DIR)', ignore_errors=True)"
