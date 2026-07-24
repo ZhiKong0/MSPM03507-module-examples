@@ -21,6 +21,7 @@
 | `examples/mspm0g3507_syscfg_adapter_example.c` | MSPM0G3507 SysConfig/DriverLib 适配示例骨架 |
 | `tests/test_tmx_expansion_board_mock.c` | PC/mock 验证安全门、pin map 和基础动作 |
 | `SCHEMATIC_PIN_MAP.md` | 从原理图图片整理出的接口表 |
+| `docs/SYSCONFIG_ADAPTER_PORTING.md` | 把适配层接入真实 SysConfig 工程的宏映射说明 |
 | `docs/SMOKE_TEST_PLAN.md` | 上板测试顺序和通过标准 |
 | `docs/SAFETY_NOTES.md` | 电源、电机、舵机、IMU/串口冲突的安全边界 |
 | `CMakeLists.txt` | 独立 object library 和可选 host 测试入口 |
@@ -29,7 +30,7 @@
 
 1. 把 `include/` 和 `src/` 加入你的 MSPM0G3507 工程。
 2. 用 SysConfig 生成 GPIO、Timer PWM、I2C0、UART0/1/2/3。
-3. 在板级文件里实现 `tmx_board_ops_t` 的回调，可参考 `examples/mspm0g3507_syscfg_adapter_example.c`。
+3. 在板级文件里实现 `tmx_board_ops_t` 的回调，可参考 `examples/mspm0g3507_syscfg_adapter_example.c` 和 `docs/SYSCONFIG_ADAPTER_PORTING.md`。
 4. 先调用 `TmxBoard_Init()`，它会立即进入安全失能状态。
 5. 按 `docs/SMOKE_TEST_PLAN.md` 的顺序逐项执行 smoke step。
 6. 只有在电机方向、编码器方向、电源限流和机械固定都确认后，才调用 `TmxBoard_ArmMotors(&board, TMX_BOARD_MOTOR_ARM_COOKIE)`。

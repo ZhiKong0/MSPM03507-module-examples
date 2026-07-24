@@ -47,6 +47,15 @@ TmxBoard_SetMotorRaw(&board, TMX_MOTOR_A, TMX_MOTOR_COAST, 0u);
 - 方向和编码器计数同步记录。
 - 任意异常立即 `TmxBoard_DisarmActuators()`。
 
+## SysConfig 接入检查
+
+执行 smoke 前先按 `docs/SYSCONFIG_ADAPTER_PORTING.md` 核对这些宏：
+
+- `TMX_SYSCFG_MOTOR_PWM_INST` 和两个 `DL_TIMER_CC_*_INDEX` 是否对应 `PA12/PA13`。
+- `TMX_SYSCFG_SERVO_PWM_INST` 和四个舵机 compare index 是否对应 `PA22/PA15/PA17/PA21`。
+- `TMX_SYSCFG_OLED_I2C_INST` 是否为原理图里的 `I2C0`。
+- `TMX_SYSCFG_UART*_INST` 是否与实际调试/IMU/视觉串口分配一致。
+
 ## 记录模板
 
 | 步骤 | 结果 | 备注 |
