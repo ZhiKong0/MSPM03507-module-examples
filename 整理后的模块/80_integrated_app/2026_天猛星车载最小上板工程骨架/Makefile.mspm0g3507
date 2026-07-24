@@ -20,7 +20,9 @@ CFLAGS += -ffunction-sections -fdata-sections
 CFLAGS += -Wall -Wextra -Werror
 CFLAGS += -Wno-error=maybe-uninitialized
 CFLAGS += -D__MSPM0G3507__ -DTMX_EXAMPLE_WITH_TI_DRIVERLIB=1
-CFLAGS += -DTMX_SYSCFG_I2C_PROBE_SEND_OLED_CONTROL_BYTE=1
+CFLAGS += -DBOARD_APP_ENABLE_LINE_GPIO=0
+CFLAGS += -DBOARD_APP_ENABLE_TFT_LCD=1
+CFLAGS += -DBOARD_APP_ENABLE_OLED_PROBE=0
 CFLAGS += -Iinclude -Isyscfg
 CFLAGS += -I$(STAGE_DIR)/bsp/include
 CFLAGS += -I$(STAGE_DIR)/line/include
@@ -39,13 +41,13 @@ SOURCES := \
 	src/main.c \
 	src/board_app.c \
 	src/jy61p_min.c \
+	src/tft_lcd_min.c \
 	syscfg/ti_msp_dl_config.c \
 	$(STAGE_DIR)/bsp/src/tmx_expansion_board.c \
 	$(STAGE_DIR)/bsp/examples/mspm0g3507_syscfg_adapter_example.c \
 	$(STAGE_DIR)/line/src/line_trace_template.c \
 	$(STAGE_DIR)/sdk/source/ti/driverlib/dl_common.c \
 	$(STAGE_DIR)/sdk/source/ti/driverlib/dl_gpio.c \
-	$(STAGE_DIR)/sdk/source/ti/driverlib/dl_i2c.c \
 	$(STAGE_DIR)/sdk/source/ti/driverlib/dl_timer.c \
 	$(STAGE_DIR)/sdk/source/ti/driverlib/dl_timerg.c \
 	$(STAGE_DIR)/sdk/source/ti/driverlib/dl_uart.c \

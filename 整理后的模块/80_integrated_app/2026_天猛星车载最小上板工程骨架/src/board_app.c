@@ -2,10 +2,23 @@
 
 #include <string.h>
 
+#include "tft_lcd_min.h"
 #include "ti_msp_dl_config.h"
 
 #ifndef BOARD_APP_ENABLE_MOTOR_OUTPUT
 #define BOARD_APP_ENABLE_MOTOR_OUTPUT 0
+#endif
+
+#ifndef BOARD_APP_ENABLE_LINE_GPIO
+#define BOARD_APP_ENABLE_LINE_GPIO 0
+#endif
+
+#ifndef BOARD_APP_ENABLE_TFT_LCD
+#define BOARD_APP_ENABLE_TFT_LCD 1
+#endif
+
+#ifndef BOARD_APP_ENABLE_OLED_PROBE
+#define BOARD_APP_ENABLE_OLED_PROBE 0
 #endif
 
 #define BOARD_APP_BOOT_COOKIE 0x544D5843u
@@ -44,6 +57,7 @@ static line_trace_sensor_params_t g_line_sensor = {
     .sensor_enable_mask = 0xffu,
 };
 
+#if BOARD_APP_ENABLE_LINE_GPIO
 static uint8_t line_pin_is_high(uint8_t channel)
 {
     uint32_t pin = 0u;
@@ -92,6 +106,7 @@ static uint8_t read_line_raw_bits(void)
 
     return raw;
 }
+#endif
 
 static void poll_jy61p_uart(void)
 {
@@ -130,6 +145,7 @@ static void refresh_runtime(const line_trace_telemetry_t *telemetry)
     g_board_app_runtime.line_detected = g_line_result.detected;
     g_board_app_runtime.line_position = g_line_result.position;
     g_board_app_runtime.line_error = g_line_result.error;
+    g_board_app_runtime.line_gpio_enabled = BOARD_APP_ENABLE_LINE_GPIO ? 1u : 0u;
     g_board_app_runtime.motors_armed = g_board.motors_armed;
     g_board_app_runtime.motor_output_enabled = BOARD_APP_ENABLE_MOTOR_OUTPUT ? 1u : 0u;
     g_board_app_runtime.safety_state = telemetry->safety_state;
@@ -150,8 +166,6 @@ void BoardApp_Init(void)
 
     TmxBoard_DefaultConfig(&board_cfg);
     board_cfg.max_motor_duty_permille = 250u;
-    board_cfg.oled_i2c_bus = 0u;
-    board_cfg.oled_i2c_addr = 0x3cu;
 
     ops = Board_BuildTmxOps();
     (void)TmxBoard_Init(&g_board, &ops, &board_cfg);
@@ -175,15 +189,25 @@ void BoardApp_Init(void)
     LineTrace_ControllerInit(&g_line_controller, &ctrl_cfg);
     LineTrace_TuningBlockInit(&g_board_app_line_tuning, &g_line_algorithm, &g_line_sensor);
 
-    g_board_app_runtime.oled_probe_ok =
-        (TmxBoard_OledProbe(&g_board) == TMX_RESULT_OK) ? 1u : 0u;
+#if BOARD_APP_ENABLE_TFT_LCD
+    g_board_app_runtime.lcd_init_ok = TftLcd_Init();
+    if (g_board_app_runtime.lcd_init_ok != 0u) {
+        g_board_app_runtime.lcd_backlight_on = 1u;
+        TftLcd_DrawBootPattern();
+    }
+#endif
+
+#if BOARD_APP_ENABLE_OLED_PROBE
+    (void)TmxBoard_OledProbe(&g_board);
+#endif
 }
 
 void BoardApp_Poll(void)
 {
     line_trace_sample_frame_t frame;
     line_trace_telemetry_t telemetry;
-    uint8_t raw_bits;
+    uint8_t raw_bits = 0xffu;
+    line_trace_sensor_status_t sensor_status = LINE_TRACE_SENSOR_STALE;
 
     poll_jy61p_uart();
 
@@ -194,12 +218,19 @@ void BoardApp_Poll(void)
                                      &g_line_sensor,
                                      LINE_TRACE_SAFETY_DISARMED);
 
+#if BOARD_APP_ENABLE_LINE_GPIO
     raw_bits = read_line_raw_bits();
+    sensor_status = LINE_TRACE_SENSOR_OK;
+#endif
     if (LineTrace_BuildSampleFrame(&g_line_sensor, raw_bits, 0u,
-                                   LINE_TRACE_SENSOR_OK, &frame) != 0u) {
+                                   sensor_status, &frame) != 0u) {
         (void)LineTrace_UpdateFromFrame(&g_line_trace, &frame, &g_line_result);
+#if BOARD_APP_ENABLE_LINE_GPIO
         LineTrace_ControllerStep(&g_line_controller, &g_line_result,
                                  g_line_algorithm.base_speed, &g_line_cmd);
+#else
+        memset(&g_line_cmd, 0, sizeof(g_line_cmd));
+#endif
     }
 
     motor_apply_if_enabled(&g_line_cmd);

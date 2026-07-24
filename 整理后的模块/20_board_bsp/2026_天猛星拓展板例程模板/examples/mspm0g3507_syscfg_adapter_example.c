@@ -246,6 +246,7 @@ static void TmxSyscfg_WriteServo(tmx_signal_id_t signal, uint16_t pulse_us, void
 #endif
 }
 
+#if defined(TMX_SYSCFG_OLED_I2C_INST)
 static uint8_t wait_i2c_status_clear(I2C_Regs *i2c, uint32_t mask)
 {
     uint32_t timeout = TMX_SYSCFG_I2C_TIMEOUT;
@@ -263,7 +264,6 @@ static uint8_t TmxSyscfg_I2cProbe(uint8_t bus_index, uint8_t address_7bit, void 
 {
     (void)user;
 
-#if defined(TMX_SYSCFG_OLED_I2C_INST)
     if ((bus_index != 0u) || (address_7bit == 0u) || (address_7bit > 0x7fu)) {
         return 0u;
     }
@@ -301,12 +301,8 @@ static uint8_t TmxSyscfg_I2cProbe(uint8_t bus_index, uint8_t address_7bit, void 
     }
 
     return 1u;
-#else
-    (void)bus_index;
-    (void)address_7bit;
-    return 0u;
-#endif
 }
+#endif
 
 static UART_Regs *uart_inst_for_index(uint8_t uart_index)
 {
@@ -363,7 +359,11 @@ tmx_board_ops_t Board_BuildTmxOps(void)
         .read_signal = 0,
         .write_pwm = TmxSyscfg_WritePwm,
         .write_servo_pulse = TmxSyscfg_WriteServo,
+#if defined(TMX_SYSCFG_OLED_I2C_INST)
         .i2c_probe = TmxSyscfg_I2cProbe,
+#else
+        .i2c_probe = 0,
+#endif
         .uart_write = TmxSyscfg_UartWrite,
         .delay_ms = TmxSyscfg_DelayMs,
         .user = 0,

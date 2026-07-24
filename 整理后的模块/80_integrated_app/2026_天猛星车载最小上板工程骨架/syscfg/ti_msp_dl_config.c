@@ -7,7 +7,6 @@ SYSCONFIG_WEAK void SYSCFG_DL_init(void)
     SYSCFG_DL_SYSCTL_init();
     SYSCFG_DL_PWM_0_init();
     SYSCFG_DL_UART_0_init();
-    SYSCFG_DL_I2C_OLED_init();
 }
 
 SYSCONFIG_WEAK void SYSCFG_DL_initPower(void)
@@ -16,13 +15,11 @@ SYSCONFIG_WEAK void SYSCFG_DL_initPower(void)
     DL_GPIO_reset(GPIOB);
     DL_TimerG_reset(PWM_0_INST);
     DL_UART_Main_reset(UART_0_INST);
-    DL_I2C_reset(I2C_OLED_INST);
 
     DL_GPIO_enablePower(GPIOA);
     DL_GPIO_enablePower(GPIOB);
     DL_TimerG_enablePower(PWM_0_INST);
     DL_UART_Main_enablePower(UART_0_INST);
-    DL_I2C_enablePower(I2C_OLED_INST);
 
     delay_cycles(POWER_STARTUP_DELAY);
 }
@@ -50,21 +47,6 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
     DL_GPIO_initPeripheralInputFunction(GPIO_UART_0_IOMUX_RX,
                                         GPIO_UART_0_IOMUX_RX_FUNC);
 
-    DL_GPIO_initPeripheralInputFunctionFeatures(GPIO_I2C_OLED_IOMUX_SDA,
-                                                GPIO_I2C_OLED_IOMUX_SDA_FUNC,
-                                                DL_GPIO_INVERSION_DISABLE,
-                                                DL_GPIO_RESISTOR_NONE,
-                                                DL_GPIO_HYSTERESIS_DISABLE,
-                                                DL_GPIO_WAKEUP_DISABLE);
-    DL_GPIO_initPeripheralInputFunctionFeatures(GPIO_I2C_OLED_IOMUX_SCL,
-                                                GPIO_I2C_OLED_IOMUX_SCL_FUNC,
-                                                DL_GPIO_INVERSION_DISABLE,
-                                                DL_GPIO_RESISTOR_NONE,
-                                                DL_GPIO_HYSTERESIS_DISABLE,
-                                                DL_GPIO_WAKEUP_DISABLE);
-    DL_GPIO_enableHiZ(GPIO_I2C_OLED_IOMUX_SDA);
-    DL_GPIO_enableHiZ(GPIO_I2C_OLED_IOMUX_SCL);
-
     DL_GPIO_initDigitalOutput(MOTOR_A_IN1_IOMUX);
     DL_GPIO_initDigitalOutput(MOTOR_A_IN2_IOMUX);
     DL_GPIO_initDigitalOutput(MOTOR_B_IN1_IOMUX);
@@ -73,15 +55,29 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
     DL_GPIO_initDigitalOutput(RGB0_IOMUX);
     DL_GPIO_initDigitalOutput(RGB1_IOMUX);
     DL_GPIO_initDigitalOutput(RGB2_IOMUX);
+    DL_GPIO_initDigitalOutput(TFT_LCD_SCL_IOMUX);
+    DL_GPIO_initDigitalOutput(TFT_LCD_SDA_IOMUX);
+    DL_GPIO_initDigitalOutput(TFT_LCD_RES_IOMUX);
+    DL_GPIO_initDigitalOutput(TFT_LCD_DC_IOMUX);
+    DL_GPIO_initDigitalOutput(TFT_LCD_CS_IOMUX);
+    DL_GPIO_initDigitalOutput(TFT_LCD_BLK_IOMUX);
 
-    DL_GPIO_clearPins(GPIOA, MOTOR_B_IN1_PIN | BUZZER_PIN | RGB2_PIN);
-    DL_GPIO_enableOutput(GPIOA, MOTOR_B_IN1_PIN | BUZZER_PIN | RGB2_PIN);
+    DL_GPIO_clearPins(GPIOA,
+                      MOTOR_B_IN1_PIN | BUZZER_PIN | RGB2_PIN |
+                          TFT_LCD_SCL_PIN | TFT_LCD_SDA_PIN);
+    DL_GPIO_setPins(GPIOA, TFT_LCD_RES_PIN | TFT_LCD_CS_PIN);
+    DL_GPIO_enableOutput(GPIOA,
+                         MOTOR_B_IN1_PIN | BUZZER_PIN | RGB2_PIN |
+                             TFT_LCD_SCL_PIN | TFT_LCD_SDA_PIN |
+                             TFT_LCD_RES_PIN | TFT_LCD_CS_PIN);
     DL_GPIO_clearPins(GPIOB,
                       MOTOR_A_IN1_PIN | MOTOR_A_IN2_PIN | MOTOR_B_IN2_PIN |
-                          RGB0_PIN | RGB1_PIN);
+                          RGB0_PIN | RGB1_PIN | TFT_LCD_BLK_PIN);
+    DL_GPIO_setPins(GPIOB, TFT_LCD_DC_PIN);
     DL_GPIO_enableOutput(GPIOB,
                          MOTOR_A_IN1_PIN | MOTOR_A_IN2_PIN | MOTOR_B_IN2_PIN |
-                             RGB0_PIN | RGB1_PIN);
+                             RGB0_PIN | RGB1_PIN | TFT_LCD_DC_PIN |
+                             TFT_LCD_BLK_PIN);
 
     init_line_input(LINE_TRACE_CH0_IOMUX);
     init_line_input(LINE_TRACE_CH1_IOMUX);
@@ -174,21 +170,4 @@ SYSCONFIG_WEAK void SYSCFG_DL_UART_0_init(void)
                                     UART_0_FBRD_32_MHZ_115200_BAUD);
     DL_UART_Main_setRXFIFOThreshold(UART_0_INST, DL_UART_RX_FIFO_LEVEL_ONE_ENTRY);
     DL_UART_Main_enable(UART_0_INST);
-}
-
-static const DL_I2C_ClockConfig gI2COledClockConfig = {
-    .clockSel = DL_I2C_CLOCK_BUSCLK,
-    .divideRatio = DL_I2C_CLOCK_DIVIDE_1,
-};
-
-SYSCONFIG_WEAK void SYSCFG_DL_I2C_OLED_init(void)
-{
-    DL_I2C_setClockConfig(I2C_OLED_INST, (DL_I2C_ClockConfig *)&gI2COledClockConfig);
-    DL_I2C_disableAnalogGlitchFilter(I2C_OLED_INST);
-    DL_I2C_resetControllerTransfer(I2C_OLED_INST);
-    DL_I2C_setTimerPeriod(I2C_OLED_INST, 7u);
-    DL_I2C_setControllerTXFIFOThreshold(I2C_OLED_INST, DL_I2C_TX_FIFO_LEVEL_EMPTY);
-    DL_I2C_setControllerRXFIFOThreshold(I2C_OLED_INST, DL_I2C_RX_FIFO_LEVEL_BYTES_1);
-    DL_I2C_enableControllerClockStretching(I2C_OLED_INST);
-    DL_I2C_enableController(I2C_OLED_INST);
 }

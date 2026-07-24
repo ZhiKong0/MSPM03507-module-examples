@@ -67,6 +67,8 @@
 
 OLED 默认探测地址为 `0x3C`，如果使用 `0x3D` 模块，改 `tmx_board_config_t.oled_i2c_addr`。
 
+当前整车最小工程已按用户实物改为 128x160 RGB TFT LCD：PA31/PA28 复用为 LCD 模块的 `SCL/SDA` 软件 SPI 线，`RES/DC/CS/BLK` 暂用 PA30/PB15/PA10/PB16 默认分配。由于这几个控制脚在 720 缩略图中未可靠读到，需要用实物丝印、高清原理图或万用表二次核对。
+
 ## 舵机
 
 | 舵机口 | 原理图网标 | 模板 signal | 状态 |

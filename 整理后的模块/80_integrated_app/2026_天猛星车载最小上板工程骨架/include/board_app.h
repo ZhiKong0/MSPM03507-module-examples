@@ -26,7 +26,9 @@ typedef struct {
     uint8_t line_detected;
     int16_t line_position;
     int16_t line_error;
-    uint8_t oled_probe_ok;
+    uint8_t line_gpio_enabled;
+    uint8_t lcd_init_ok;
+    uint8_t lcd_backlight_on;
     uint8_t motors_armed;
     uint8_t motor_output_enabled;
     uint8_t safety_state;
